@@ -3,13 +3,8 @@ import React, { Component } from 'react';
 class GoaliePicker extends Component {
   render() {
     return(
-      <div className="filters">
-        <button>2019</button>
-        <button>Career</button>
-        <button>ALL</button>
-        <button>5v5</button>
-        <button>PK</button>
-        <button>RESET</button>
+      <div>
+        <input type="text" placeholder="Pick a Goalie!"/>
       </div>
     );
   }
