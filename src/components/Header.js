@@ -7,11 +7,11 @@ const Header = () => (
     </div>
     <div>
       <nav>
-        <ol>
+        <ul>
           <li>ABOUT</li>
           <li>GLOSSARY</li>
           <li>RESOURCES</li>
-        </ol>
+        </ul>
       </nav>
     </div>
   </header>
