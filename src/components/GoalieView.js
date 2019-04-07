@@ -2,6 +2,7 @@ import React from 'react';
 
 import Chart from './Chart';
 import Filters from './Filters';
+import GoaliePicker from './GoaliePicker';
 
 const GoalieView = ({stats}) => {
 
@@ -11,6 +12,7 @@ const GoalieView = ({stats}) => {
         <Chart
           stats={stats}
         />
+        <GoaliePicker />
       </>
     );
 }
