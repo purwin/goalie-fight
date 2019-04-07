@@ -52,3 +52,7 @@ img {
   .box-body {
     
   }
+
+  .chart {
+    height: 50vh;
+  }
