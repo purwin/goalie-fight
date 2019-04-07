@@ -1,10 +1,17 @@
 import React from 'react';
 
 const Chart = ({stats}) => {
+  const statArray = Object.entries(stats);
 
     return(
       <div className="chart box">
-        <h1>{stats.sv}</h1>
+        <ul>
+          {
+            statArray.map((item) => (
+              <li key={item[0]}>{item[1]}</li>
+            ))
+          }
+        </ul>
       </div>
     );
 }
