@@ -4,29 +4,36 @@ import logo from './logo.svg';
 import './App.css';
 
 import Header from './components/Header';
-import Chart from './components/Chart';
+import GoalieView from './components/GoalieView';
+import Comparables from './components/Comparables';
+import Stats from './components/Stats';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stats: {
+        gsaa: 95,
+        sv: 92.1,
+        xsv: 91.8,
+        hdsv: 88.78,
+        w: 22
+      }
+    };
+  }
+
   render() {
     return (
       <div className="App">
-      <Header />
-      <Chart />
-
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Header />
+        {/* <Stats 
+          stats={this.state.stats}
+        /> */}
+        <GoalieView 
+          stats={this.state.stats}
+        />
+        {/* <Comparables /> */}
       </div>
     );
   }
