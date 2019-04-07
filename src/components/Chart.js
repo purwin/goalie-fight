@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Chart extends Component {
-  render() {
+const Chart = ({stats}) => {
 
     return(
       <div className="chart box">
-        <img src="http://www.cs.middlebury.edu/~candrews/showcase/infovis_techniques_s16/radar_chart/chart.png" alt=""/>
+        <h1>{stats.sv}</h1>
       </div>
     );
-  }
 }
 
 export default Chart;
