@@ -4,9 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import Header from './components/Header';
-import GoalieView from './components/GoalieView';
-import Comparables from './components/Comparables';
-import Stats from './components/Stats';
+import Display from './components/Display';
 
 class App extends Component {
   constructor(props) {
@@ -27,13 +25,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        {/* <Stats 
-          stats={this.state.stats}
-        /> */}
-        <GoalieView 
+        <Display 
           stats={this.state.stats}
         />
-        {/* <Comparables /> */}
       </div>
     );
   }
