@@ -1,12 +1,11 @@
 import React from 'react';
 
+import Box from './elements/Box';
+
 const Stats = ({stats}) => {
   console.log(Object.values(stats));
     return (
-      <div className="box">
-        <div className="box-head">
-          <h3>AVERAGES</h3>
-        </div>
+      <Box title={`Averages`}>
         <div className="box-body">
           <ul>
             {Object.values(stats).map((stat, index) => (
@@ -14,7 +13,7 @@ const Stats = ({stats}) => {
             ))}
           </ul>
         </div>
-      </div>
+      </Box>
     );
 }
 
