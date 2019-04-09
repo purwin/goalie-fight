@@ -12,7 +12,7 @@ class App extends Component {
 
     this.state = {
       stats: {
-        gsaa: 95,
+        gsaa: 18.5,
         sv: 92.1,
         xsv: 91.8,
         hdsv: 88.78,
