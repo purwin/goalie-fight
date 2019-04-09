@@ -81,7 +81,7 @@ const Chart = ({stats}) => {
         }}
         legends={[
             {
-                "anchor": "bottom-right",
+                "anchor": "top-left",
                 "direction": "column",
                 "translateX": -50,
                 "translateY": -40,
