@@ -2,32 +2,31 @@ import React from 'react';
 import { ResponsiveRadar } from '@nivo/radar'
 
 const Chart = ({stats}) => {
-  console.log(Object.keys(stats));
   const statArray = Object.entries(stats);
   const keys = Object.keys(stats);
   const data = [
     {
       "stat": "GSAA",
       "Goalie 1": stats.gsaa,
-      "Goalie 2": 91
+      "Goalie 2": -3
     },
     {
-      "stat": "HDSV",
+      "stat": "HDSV%",
       "Goalie 1": stats.hdsv,
       "Goalie 2": 77.5
     },
     {
-      "stat": "SV",
+      "stat": "SV%",
       "Goalie 1": stats.sv,
       "Goalie 2": 89.7
     },
     {
-      "stat": "W",
+      "stat": "Wins",
       "Goalie 1": stats.w,
       "Goalie 2": 40
     },
     {
-      "stat": "xSV",
+      "stat": "xSV%",
       "Goalie 1": stats.xsv,
       "Goalie 2": 98
     }
@@ -67,22 +66,35 @@ const Chart = ({stats}) => {
         motionStiffness={90}
         motionDamping={15}
         isInteractive={true}
+        tooltip={({ id, value, color }) => (
+          <strong style={{ color }}>
+            {id}: {value}
+          </strong>
+          )}
+        theme={{
+          tooltip: {
+            container: {
+              background: '#021926',
+              color: '#dfe6e9'
+            },
+          },
+        }}
         legends={[
             {
-                "anchor": "top-left",
+                "anchor": "bottom-right",
                 "direction": "column",
                 "translateX": -50,
                 "translateY": -40,
                 "itemWidth": 80,
                 "itemHeight": 20,
-                "itemTextColor": "#fff",
+                "itemTextColor": "#333",
                 "symbolSize": 12,
                 "symbolShape": "circle",
                 "effects": [
                     {
                         "on": "hover",
                         "style": {
-                            "itemTextColor": "green"
+                            "itemTextColor": "0066E5"
                         }
                     }
                 ]
