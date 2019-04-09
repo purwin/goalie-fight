@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
+import Box from './elements/Box';
+
 class Comparables extends Component {
   render() {
     return (
-      <div className="box">
-        <div className="box-head">
-          <h3>Comparables</h3>
-        </div>
+      <Box title={`Comparables`}>
         <div className="box-body">
           <ul>
             <li>
@@ -31,7 +30,7 @@ class Comparables extends Component {
             </li>
           </ul>
         </div>
-      </div>
+      </Box>
     );
   }
 }
