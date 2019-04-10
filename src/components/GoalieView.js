@@ -1,20 +1,26 @@
-import React from 'react';
+import React from 'react'
 
-import Chart from './Chart';
-import Filters from './Filters';
-import GoaliePicker from './GoaliePicker';
+import Chart from './Chart'
+import Filters from './Filters'
+import GoalieSelectors from './GoalieSelectors'
 
-const GoalieView = ({stats}) => {
+const GoalieView = ({stats, goalies, goalieList, time, situation}) => {
 
-    return(
-      <>
-        <Filters />
-        <Chart
-          stats={stats}
-        />
-        <GoaliePicker />
-      </>
-    );
-}
+  return(
+    <div>
+      <Filters
+        time={time}
+        situation={situation}
+      />
+      <Chart
+        stats={stats}
+      />
+      <GoalieSelectors
+        goalies={goalies}
+        goalieList={goalieList}
+      />
+    </div>
+  )
+};
 
-export default GoalieView;
+export default GoalieView
