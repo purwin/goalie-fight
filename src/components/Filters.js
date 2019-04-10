@@ -1,18 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class Filters extends Component {
-  render() {
-    return(
-      <div className="filters">
-        <button>2019</button>
-        <button>Career</button>
-        <button>ALL</button>
-        <button>5v5</button>
-        <button>PK</button>
-        <button>RESET</button>
+import FilterButton from './elements/FilterButton'
+
+const Filters = ({time, situation}) => {
+  const timeFilters = [`2019`, `CAREER`];
+  const situationFilters = [`EVENS`, `PK`, `ALL`];
+
+  return(
+    <div className="filters">
+      <div className="time">
+      {timeFilters.map((filter, i) => (
+        <FilterButton
+          key={i}
+          active={time === filter}
+          label={filter}
+        />
+      ))}
       </div>
-    );
-  }
-}
+      <div className="situation">
+        {situationFilters.map((filter, i) => (
+          <FilterButton
+            key={i}
+            active={situation === filter}
+            label={filter}
+          />
+        ))}
+      </div>
+      <div className="reset">
+        <FilterButton
+          label={`RESET`}
+        />
+      </div>
+    </div>
+  )
+};
 
-export default Filters;
+export default Filters
