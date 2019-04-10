@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import Box from './elements/Box';
+import Box from './elements/Box'
 
 class Comparables extends Component {
   render() {
-    return (
+    return(
       <Box title={`Comparables`}>
         <div className="box-body">
           <ul>
@@ -31,8 +31,9 @@ class Comparables extends Component {
           </ul>
         </div>
       </Box>
-    );
+    )
   }
-}
 
-export default Comparables;
+};
+
+export default Comparables
