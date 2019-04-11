@@ -4,31 +4,32 @@ import { ResponsiveRadar } from '@nivo/radar'
 const Chart = ({stats}) => {
   const statArray = Object.entries(stats);
   const keys = Object.keys(stats);
+  const goalie2 = `Goalie 2`
   const data = [
     {
-      "stat": "GSAA",
-      "Goalie 1": stats.gsaa,
-      "Goalie 2": -3
+      "stat": "SV%",
+      [stats[0].name]: stats[0].sv,
+      [goalie2]: 89.7
     },
     {
       "stat": "HDSV%",
-      "Goalie 1": stats.hdsv,
-      "Goalie 2": 77.5
+      [stats[0].name]: stats[0].hdsv,
+      [goalie2]: 77.5
     },
     {
-      "stat": "SV%",
-      "Goalie 1": stats.sv,
-      "Goalie 2": 89.7
+      "stat": "GSAA",
+      [stats[0].name]: stats[0].gsaa,
+      [goalie2]: -3
     },
     {
-      "stat": "Wins",
-      "Goalie 1": stats.w,
-      "Goalie 2": 40
+      "stat": "HDGSAA",
+      [stats[0].name]: stats[0].hdgsaa,
+      [goalie2]: 98
     },
     {
       "stat": "xSV%",
-      "Goalie 1": stats.xsv,
-      "Goalie 2": 98
+      [stats[0].name]: stats[0].xsv,
+      [goalie2]: 98
     }
   ];
 
@@ -36,7 +37,7 @@ const Chart = ({stats}) => {
     <div className="chart box">
       <ResponsiveRadar
       data={data}
-      keys={[`Goalie 1`, `Goalie 2`]}
+      keys={[stats[0].name, goalie2]}
       indexBy={`stat`}
       maxValue={100}
       margin={{
@@ -102,7 +103,7 @@ const Chart = ({stats}) => {
       ]}
     />
     </div>
-  );
+  )
 
 };
 
