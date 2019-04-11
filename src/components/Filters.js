@@ -1,6 +1,14 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import FilterButton from './elements/FilterButton'
+
+const FiltersDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: yellow;
+  color: aquamarine;
+`;
 
 const Filters = ({time, situation}) => {
   const timeFilters = [`2019`, `CAREER`];
