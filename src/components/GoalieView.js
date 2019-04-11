@@ -4,7 +4,7 @@ import Chart from './Chart'
 import Filters from './Filters'
 import GoalieSelectors from './GoalieSelectors'
 
-const GoalieView = ({stats, goalies, goalieList, time, situation}) => {
+const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie}) => {
 
   return(
     <div>
@@ -18,6 +18,9 @@ const GoalieView = ({stats, goalies, goalieList, time, situation}) => {
       <GoalieSelectors
         goalies={goalies}
         goalieList={goalieList}
+        changeGoalie={changeGoalie}
+        addGoalie={addGoalie}
+        pullGoalie={pullGoalie}
       />
     </div>
   )
