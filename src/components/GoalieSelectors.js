@@ -3,7 +3,7 @@ import React from 'react';
 import GoalieSelector from './GoalieSelector'
 
 
-const GoalieSelectors = ({goalies, goalieList}) => {
+const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
 
 	const goalieListSorted = goalieList.sort((a, b) => a.id - b.id);
 
@@ -12,11 +12,12 @@ const GoalieSelectors = ({goalies, goalieList}) => {
 			{goalies.map((goalie, i) => (
 				<GoalieSelector
 					key={i}
+					index={i}
 					goalie={goalie}
 					goalieList={goalieListSorted}
+					changeGoalie={changeGoalie}
 				/>
 			))}
-			{goalies.length > 1 ? <button>X</button> : <button>+</button>}
 		</div>
 	);
 }
