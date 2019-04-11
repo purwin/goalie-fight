@@ -17,6 +17,7 @@ class App extends Component {
           sv: 92.1,
           xsv: 91.8,
           hdsv: 88.78,
+          hdgsaa: -4.33,
           w: 22
         },
       ],
@@ -24,8 +25,8 @@ class App extends Component {
       situation: `ALL`,
       goalies: [
         {
-          id: null,
-          name: ``
+          id: 4,
+          name: `Bob Essensa`
         },
       ],
       goalieList: [
@@ -53,31 +54,49 @@ class App extends Component {
     };
 
     this.addGoalie = this.addGoalie.bind(this);
-    this.removeGoalie = this.removeGoalie.bind(this);
+    this.pullGoalie = this.pullGoalie.bind(this);
+    this.changeGoalie = this.changeGoalie.bind(this);
+
     this.addSituation = this.addSituation.bind(this);
     this.removeSituation = this.removeSituation.bind(this);
+
     this.addTime = this.addTime.bind(this);
     this.removeTime = this.removeTime.bind(this);
+
     this.resetFilters = this.resetFilters.bind(this);
   
   }
 
     // Add goalie to this.state.goalies
-    addGoalie = add => {
+    addGoalie = (goalie = {}) => {
       this.setState(prevState => {
         return {
-          goalies: prevState.goalies.concat(add)
+          goalies: prevState.goalies.concat(goalie)
         }
       })
     };
 
     // Remove goalie from this.state.goalies
-    removeGoalie = remove => {
+    pullGoalie = id => {
+      console.log(id);
       this.setState(prevState => {
         return {
-          goalies: prevState.goalies.filter(goalie => goalie.id !== remove.id)
+          goalies: prevState.goalies.filter(goalie => goalie.id !== id)
         }
       })
+    };
+
+    changeGoalie = e => {
+      console.log(e);
+      // console.log(newGoalie);
+      // this.setState(prevState => {
+      //   return {
+      //     goalies: prevState.goalies.map((goalie, i) => (
+      //       (index === i) ? newGoalie : goalie
+      //     ))
+      //   }
+      // })
+      // console.log(this.state.goalies);
     };
 
     // FUTURE: Function to retrieve stats
@@ -129,6 +148,7 @@ class App extends Component {
           goalieList={this.state.goalieList}
           time={this.state.time}
           situation={this.state.situation}
+          changeGoalie={this.changeGoalie}
         />
       </div>
     )
