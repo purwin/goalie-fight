@@ -74,16 +74,20 @@ class App extends Component {
           goalies: prevState.goalies.concat(goalie)
         }
       })
+
+      console.log(this.state.goalies);
     };
 
     // Remove goalie from this.state.goalies
-    pullGoalie = id => {
-      console.log(id);
+    pullGoalie = index => {
+      console.log(index);
       this.setState(prevState => {
         return {
-          goalies: prevState.goalies.filter(goalie => goalie.id !== id)
+          goalies: prevState.goalies.filter((goalie, i) => index !== i)
         }
       })
+
+      console.log(this.state.goalies);
     };
 
     changeGoalie = (index, newGoalie) => {
@@ -94,7 +98,7 @@ class App extends Component {
           ))
         }
       })
-      // console.log(this.state.goalies);
+      console.log(this.state.goalies);
     };
 
     // FUTURE: Function to retrieve stats
@@ -147,6 +151,8 @@ class App extends Component {
           time={this.state.time}
           situation={this.state.situation}
           changeGoalie={this.changeGoalie}
+          addGoalie={this.addGoalie}
+          pullGoalie={this.pullGoalie}
         />
       </div>
     )
