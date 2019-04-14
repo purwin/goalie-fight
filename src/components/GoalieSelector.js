@@ -3,9 +3,12 @@ import React from 'react'
 const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
 
 	const onChangeGoalie = (option) => {
-    console.log(option.target.options[option.target.selectedIndex].text);
-    console.log(option.target.value);
-		// changeGoalie()
+		const newGoalie = {
+			id: option.target.value,
+			name: option.target.options[option.target.selectedIndex].text
+		}
+
+		changeGoalie(index, newGoalie)
 	}
 	return(
 		<div>
