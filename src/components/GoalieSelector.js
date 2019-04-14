@@ -27,7 +27,7 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 					</option>
 				))}
 			</select>
-			{index > 0 ? <button onClick={addGoalie}>X</button> : <button onClick={() => pullGoalie(index)}>+</button>}
+			{index > 0 ? <button onClick={() => pullGoalie(index)}>X</button> : <button onClick={addGoalie}>+</button>}
 		</div>
 	)
 };
