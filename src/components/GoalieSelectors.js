@@ -16,6 +16,8 @@ const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoal
 					goalie={goalie}
 					goalieList={goalieListSorted}
 					changeGoalie={changeGoalie}
+					addGoalie={addGoalie}
+					pullGoalie={pullGoalie}
 				/>
 			))}
 		</div>
