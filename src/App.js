@@ -86,16 +86,14 @@ class App extends Component {
       })
     };
 
-    changeGoalie = e => {
-      console.log(e);
-      // console.log(newGoalie);
-      // this.setState(prevState => {
-      //   return {
-      //     goalies: prevState.goalies.map((goalie, i) => (
-      //       (index === i) ? newGoalie : goalie
-      //     ))
-      //   }
-      // })
+    changeGoalie = (index, newGoalie) => {
+      this.setState(prevState => {
+        return {
+          goalies: prevState.goalies.map((goalie, i) => (
+            (index === i) ? newGoalie : goalie
+          ))
+        }
+      })
       // console.log(this.state.goalies);
     };
 
