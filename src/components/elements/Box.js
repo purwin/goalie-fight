@@ -12,8 +12,8 @@ const Box = styled.div`
 const Head = styled.h3`
 `;
 
-export default ({title, children}) => (
-  <Box>
+export default ({title, children, className}) => (
+  <Box className={className}>
     <Head>
       {title}
     </Head>
