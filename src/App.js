@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      stats: [
+      data: [
         {
           id: 1,
           name: `Andy Moog`,
@@ -20,13 +20,56 @@ class App extends Component {
           hdgsaa: -4.33,
           w: 22
         },
+        {
+          id: 3,
+          name: `Dominic Roussel`,
+          gsaa: -3,
+          sv: 91.4,
+          xsv: 92.5,
+          hdsv: 77.9,
+          hdgsaa: -1.87,
+          w: 16
+        },
+        {
+          id: 4,
+          name: `Bob Essensa`,
+          gsaa: -12,
+          sv: 88.9,
+          xsv: 95,
+          hdsv: 77.9,
+          hdgsaa: -9,
+          w: 9
+        },
+        {
+          id: 2,
+          name: `Tommy Soderstrom`,
+          gsaa: 16,
+          sv: 93.09,
+          xsv: 89.4,
+          hdsv: 89.7,
+          hdgsaa: 9,
+          w: 37
+        },
+        {
+          id: 5,
+          name: `Don Beaupre`,
+          gsaa: -0.3,
+          sv: 90.03,
+          xsv: 85.2,
+          hdsv: 80.1,
+          hdgsaa: .4,
+          w: 22
+        },
+      ],
+      stats: [
+        {},
       ],
       time: `2019`,
       situation: `ALL`,
       goalies: [
         {
-          id: 4,
-          name: `Bob Essensa`
+          id: undefined,
+          name: ``
         },
       ],
       goalieList: [
@@ -71,7 +114,8 @@ class App extends Component {
     addGoalie = (goalie = {}) => {
       this.setState(prevState => {
         return {
-          goalies: prevState.goalies.concat(goalie)
+          goalies: prevState.goalies.concat(goalie),
+          stats: prevState.stats.concat(goalie),
         }
       })
 
@@ -91,14 +135,19 @@ class App extends Component {
     };
 
     changeGoalie = (index, newGoalie) => {
+      const fun = this.state.data.filter(item => newGoalie.id === item.id);
+      console.log(fun)
       this.setState(prevState => {
         return {
           goalies: prevState.goalies.map((goalie, i) => (
             (index === i) ? newGoalie : goalie
+          )),
+          stats: prevState.stats.map((stat, i) => (
+            (index === i) ? prevState.data.filter(item => newGoalie.id === item.id)[0] : stat
           ))
         }
       })
-      console.log(this.state.goalies);
+
     };
 
     // FUTURE: Function to retrieve stats
