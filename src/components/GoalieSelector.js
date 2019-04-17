@@ -4,7 +4,7 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 
 	const onChangeGoalie = (option) => {
 		const newGoalie = {
-			id: option.target.value,
+			id: parseInt(option.target.value),
 			name: option.target.options[option.target.selectedIndex].text
 		}
 
