@@ -1,6 +1,7 @@
 import React from 'react'
 import { ResponsiveRadar } from '@nivo/radar'
 import styled from 'styled-components'
+import {percentile} from '../utils/maths'
 
 import Box from './elements/Box'
 
@@ -11,6 +12,7 @@ const ChartBox = styled(Box)`
 `;
 
 const Chart = ({stats, ...proppers}) => {
+  console.log(stats)
   // Store goalie index as chart keys
   const keys = stats.map((item, i) => i);
 
@@ -69,6 +71,19 @@ const Chart = ({stats, ...proppers}) => {
   }, []);
 
   console.log(data);
+
+  const statsArrays = stats.reduce((data, line) => {
+    console.log(line);
+    if (line.name) {
+      Object.keys(line).forEach(key => {
+        data[key] ? data[key].push(line[key]) : data[key] = [line[key]];
+      });
+    }
+
+    return data;
+  }, {});
+
+  console.log(statsArrays);
 
   // const data_test = [
   //   {
