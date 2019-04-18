@@ -1,6 +1,6 @@
 const csv=require('csvtojson')
 
-const csvFilePath='<path to csv file>'
+const csvFilePath='../../../data-import-test-02.csv'
 
 csv()
 .fromFile(csvFilePath)
