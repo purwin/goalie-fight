@@ -127,7 +127,8 @@ class App extends Component {
       console.log(index);
       this.setState(prevState => {
         return {
-          goalies: prevState.goalies.filter((goalie, i) => index !== i)
+          goalies: prevState.goalies.filter((goalie, i) => index !== i),
+          stats: prevState.stats.filter((stat, i) => index !== i),
         }
       })
 
