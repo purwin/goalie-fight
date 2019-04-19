@@ -5,6 +5,7 @@
   "dependencies": {
     "@nivo/radar": "^0.55.0",
     "csvtojson": "^2.0.8",
+    "firebase": "^5.9.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
