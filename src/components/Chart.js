@@ -11,7 +11,7 @@ const ChartBox = styled(Box)`
   color: #4C9CFF;
 `;
 
-const Chart = ({stats, ...proppers}) => {
+const Chart = ({stats}) => {
   console.log(stats)
   // Store goalie index as chart keys
   const keys = stats.map((item, i) => i);
