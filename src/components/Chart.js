@@ -53,6 +53,17 @@ const Chart = ({stats, ...proppers}) => {
     },
   ];
 
+  const statsArrays = stats.reduce((data, line) => {
+    if (line.name) {
+      Object.keys(line).forEach(key => {
+        data[key] ? data[key].push(line[key]) : data[key] = [line[key]];
+      });
+    }
+
+    return data;
+  }, {});
+
+
   // Combine stats prop and statMap to single array of objects
   const data = statMap.reduce((data, line) => {
     let statObj = {
@@ -63,7 +74,8 @@ const Chart = ({stats, ...proppers}) => {
     stats.forEach((stat, i) => {
       // Assign goalie dude index as key
       // If goalie stat defined, assign as value, otherwise 0
-      statObj[i] = stat[line.stat] || 0;
+      stat[line.stat] ? statObj[i] = percentile(stat[line.stat], statsArrays[line.stat]) : statObj[i] = 0;
+      // console.log(statsArrays[line.stat])
     });
 
     data.push(statObj)
@@ -71,19 +83,6 @@ const Chart = ({stats, ...proppers}) => {
   }, []);
 
   console.log(data);
-
-  const statsArrays = stats.reduce((data, line) => {
-    console.log(line);
-    if (line.name) {
-      Object.keys(line).forEach(key => {
-        data[key] ? data[key].push(line[key]) : data[key] = [line[key]];
-      });
-    }
-
-    return data;
-  }, {});
-
-  console.log(statsArrays);
 
   // const data_test = [
   //   {
@@ -137,7 +136,7 @@ const Chart = ({stats, ...proppers}) => {
         dotColor="inherit"
         dotBorderWidth={0}
         dotBorderColor="#ffffff"
-        enableDotLabel={true}
+        enableDotLabel={false}
         dotLabel="value"
         dotLabelYOffset={-12}
         colors="nivo"
