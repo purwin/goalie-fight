@@ -1,7 +1,6 @@
 import React from 'react'
 import { ResponsiveRadar } from '@nivo/radar'
 import styled from 'styled-components'
-import {percentile} from '../utils/maths'
 
 import Box from './elements/Box'
 
