@@ -11,13 +11,14 @@ const calc_SV = (saves, shots) => parseFloat(saves) / parseFloat(shots);
 // Function that calculates dSV% (SV% - xSV%)
 // Receives 2 arguments: SV% and xSV% (numbers as string or int)
 // Returns an int
-const calc_DSV = (sv, xsv) => (parseFloat(sv) * 100) - (parseFloat(xsv) * 100);
+const calc_DSV = (sv, xsv) => decimalThree((parseFloat(sv) * 100) - (parseFloat(xsv) * 100));
 
 // Function that calculates per-60 stats
 // Receives 2 arguments: a value and time in mins (numbers as string or int)
 // Returns an int
-const calc_PER60 = (val, mins) => ((parseFloat(val) / parseFloat(mins)) * 60);
+const calc_PER60 = (val, mins) => decimalThree((parseFloat(val) / parseFloat(mins)) * 60);
 
+const decimalThree = num => Math.round( num * 1e3 ) / 1e3;
 
 csv()
 	.fromFile(csvFilePath)
@@ -39,10 +40,10 @@ csv()
       		hdsv: parseFloat(goalie['HDSV%']),
       		hdgsaa: parseFloat(goalie.HDGSAA),
       		hdgsaa60: calc_PER60(goalie.HDGSAA, goalie.TOI),
-      		xsv: calc_SV(
+      		xsv: decimalThree(calc_SV(
       				(goalie['Shots Against'] - goalie['xG Against']),
       				goalie['Shots Against']
-      		),
+      		)),
             dsv: calc_DSV(
                   goalie['SV%'],
                   calc_SV(
@@ -57,4 +58,6 @@ csv()
          if (err) throw err;
          console.log(err);
       });
+
+      console.log(newData[0]);
 	})
