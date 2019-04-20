@@ -1,18 +1,44 @@
 import React from 'react'
+import Select from 'react-select';
 
 const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
+	let options = [];
 
-	const onChangeGoalie = (option) => {
-		const newGoalie = {
-			id: parseInt(option.target.value),
-			name: option.target.options[option.target.selectedIndex].text
-		}
+	goalieList.forEach(goalie => {
+		options.push({
+			value: goalie.id,
+			label: goalie.name
+		})
+	});
+
+	const onChangeGoalie = newGoalie => {
+		console.log(newGoalie);
+		console.log(index);
+		// const newGoalie = {
+		// 	id: parseInt(option.target.value),
+		// 	name: option.target.options[option.target.selectedIndex].text
+		// }
 
 		changeGoalie(index, newGoalie)
 	}
+
+	// const onChangeGoalie = (option) => {
+	// 	const newGoalie = {
+	// 		id: parseInt(option.target.value),
+	// 		name: option.target.options[option.target.selectedIndex].text
+	// 	}
+
+	// 	changeGoalie(index, newGoalie)
+	// }
+
 	return(
 		<div>
-			<select
+			<Select
+        value={goalie.id}
+        onChange={onChangeGoalie}
+        options={options}
+      />
+			{/* <select
 				value={goalie.id}
 				onChange={onChangeGoalie}
 			>
@@ -26,7 +52,7 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 						{goalieOption.name}
 					</option>
 				))}
-			</select>
+			</select> */}
 			{index > 0 ? <button onClick={() => pullGoalie(index)}>X</button> : <button onClick={addGoalie}>+</button>}
 		</div>
 	)
