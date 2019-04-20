@@ -3,64 +3,36 @@ import React, { Component } from 'react'
 import Header from './components/Header'
 import Display from './components/Display'
 import './App.css'
+import * as datum from './data/stats_2018_5v5.json'
+
+
+// Define list of goalies
+let goalieList = [];
+
+// Define all goalie stats
+let goalieData = [];
+
+// Loop over data, populate arrays
+datum.default.forEach((item, i) => {
+  // Add goalie name, id to list array
+  goalieList.push({
+    id: i,
+    name: item.name
+  })
+
+  // Add all stat items to array
+  goalieData.push({
+    id: i,
+    ...item
+  })
+});
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [
-        {
-          id: 1,
-          name: `Andy Moog`,
-          gsaa: 18.5,
-          sv: 92.1,
-          xsv: 91.8,
-          hdsv: 88.78,
-          hdgsaa: -4.33,
-          w: 22
-        },
-        {
-          id: 3,
-          name: `Dominic Roussel`,
-          gsaa: -3,
-          sv: 91.4,
-          xsv: 92.5,
-          hdsv: 77.9,
-          hdgsaa: -1.87,
-          w: 16
-        },
-        {
-          id: 4,
-          name: `Bob Essensa`,
-          gsaa: -12,
-          sv: 88.9,
-          xsv: 95,
-          hdsv: 77.9,
-          hdgsaa: -9,
-          w: 9
-        },
-        {
-          id: 2,
-          name: `Tommy Soderstrom`,
-          gsaa: 16,
-          sv: 93.09,
-          xsv: 89.4,
-          hdsv: 89.7,
-          hdgsaa: 9,
-          w: 37
-        },
-        {
-          id: 5,
-          name: `Don Beaupre`,
-          gsaa: -0.3,
-          sv: 90.03,
-          xsv: 85.2,
-          hdsv: 80.1,
-          hdgsaa: .4,
-          w: 22
-        },
-      ],
+      data: goalieData,
       stats: [
         {},
       ],
@@ -72,28 +44,7 @@ class App extends Component {
           name: ``
         },
       ],
-      goalieList: [
-        {
-          id: 1,
-          name: `Andy Moog`
-        },
-        {
-          id: 3,
-          name: `Dominic Roussel`
-        },
-        {
-          id: 4,
-          name: `Bob Essensa`
-        },
-        {
-          id: 2,
-          name: `Tommy Soderstrom`
-        },
-        {
-          id: 5,
-          name: `Don Beaupre`
-        }
-      ],
+      goalieList: goalieList
     };
 
     this.addGoalie = this.addGoalie.bind(this);
