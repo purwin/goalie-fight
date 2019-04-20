@@ -36,20 +36,20 @@ const Chart = ({stats}) => {
       stat: `sv`,
     },
     {
-      name: `xSV%`,
-      stat: `xsv`,
+      name: `dSV%`,
+      stat: `dsv`,
     },
     {
-      name: `GSAA`,
-      stat: `gsaa`,
+      name: `GSAA/60`,
+      stat: `gsaa60`,
     },
     {
       name: `HDSV%`,
       stat: `hdsv`,
     },
     {
-      name: `HDGSAA`,
-      stat: `hdgsaa`,
+      name: `HDGSAA/60`,
+      stat: `hdgsaa60`,
     },
   ];
 
@@ -74,7 +74,7 @@ const Chart = ({stats}) => {
     stats.forEach((stat, i) => {
       // Assign goalie dude index as key
       // If goalie stat defined, assign as value, otherwise 0
-      stat[line.stat] ? statObj[i] = percentile(stat[line.stat], statsArrays[line.stat]) : statObj[i] = 0;
+      stat[line.stat] ? statObj[i] = stat[`p_${line.stat}`] : statObj[i] = 0;
       // console.log(statsArrays[line.stat])
     });
 
