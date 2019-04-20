@@ -17,7 +17,7 @@ datum.default.forEach((item, i) => {
   // Add goalie name, id to list array
   goalieList.push({
     id: i,
-    name: item.name
+    name: `${item.name} (${item.team})`
   })
 
   // Add all stat items to array
@@ -44,7 +44,17 @@ class App extends Component {
           name: ``
         },
       ],
-      goalieList: goalieList
+      goalieList: goalieList.sort((a, b) => {
+        var nameA = a.name.toUpperCase();
+        var nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      })
     };
 
     this.addGoalie = this.addGoalie.bind(this);
@@ -69,8 +79,6 @@ class App extends Component {
           stats: prevState.stats.concat(goalie),
         }
       })
-
-      console.log(this.state.goalies);
     };
 
     // Remove goalie from this.state.goalies
@@ -82,12 +90,11 @@ class App extends Component {
           stats: prevState.stats.filter((stat, i) => index !== i),
         }
       })
-
-      console.log(this.state.goalies);
     };
 
     changeGoalie = (index, newGoalie) => {
-      const fun = this.state.data.filter(item => newGoalie.id === item.id);
+      console.log(newGoalie);
+      const fun = this.state.data.filter(item => newGoalie.value === item.id);
       console.log(fun)
       this.setState(prevState => {
         return {
@@ -95,7 +102,7 @@ class App extends Component {
             (index === i) ? newGoalie : goalie
           )),
           stats: prevState.stats.map((stat, i) => (
-            (index === i) ? prevState.data.filter(item => newGoalie.id === item.id)[0] : stat
+            (index === i) ? prevState.data.filter(item => newGoalie.value === item.id)[0] : stat
           ))
         }
       })
@@ -126,7 +133,7 @@ class App extends Component {
 
     addTime = val => this.addFilter("time", val);
 
-    removeTime = val => this.emoveFilter("time", val);
+    removeTime = val => this.removeFilter("time", val);
 
     // Reset filters function
     resetFilters = () => {
