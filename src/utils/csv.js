@@ -18,7 +18,7 @@ const calc_DSV = (sv, xsv) => decimalThree((parseFloat(sv) * 100) - (parseFloat(
 // Returns an int
 const calc_PER60 = (val, mins) => decimalThree((parseFloat(val) / parseFloat(mins)) * 60);
 
-const decimalThree = num => Math.round( num * 1e3 ) / 1e3;
+const decimalThree = num => Number(num.toFixed(3));
 
 csv()
 	.fromFile(csvFilePath)
