@@ -5,7 +5,8 @@ import styled from 'styled-components'
 import Box from './elements/Box'
 
 const ChartBox = styled(Box)`
-  width: 50%;
+  width: 100%;
+  height:100%;
   background: #E5F1FF;
   color: #4C9CFF;
 `;
@@ -43,12 +44,12 @@ const Chart = ({stats}) => {
       stat: `gsaa60`,
     },
     {
-      name: `HDSV%`,
-      stat: `hdsv`,
-    },
-    {
       name: `HDGSAA/60`,
       stat: `hdgsaa60`,
+    },
+    {
+      name: `HDSV%`,
+      stat: `hdsv`,
     },
   ];
 
@@ -129,7 +130,7 @@ const Chart = ({stats}) => {
         borderColor="inherit"
         gridLevels={5}
         gridShape="circular"
-        gridLabelOffset={36}
+        gridLabelOffset={16}
         enableDots={true}
         dotSize={8}
         dotColor="inherit"
@@ -144,7 +145,7 @@ const Chart = ({stats}) => {
         animate={true}
         motionStiffness={90}
         motionDamping={15}
-        isInteractive={true}
+        isInteractive={false}
         tooltip={({ id, value, color }) => (
           <strong style={{ color }}>
             {id}: {value}
