@@ -1,6 +1,13 @@
 import React from 'react';
+import styled from 'styled-components'
 
 import GoalieSelector from './GoalieSelector'
+
+const SelectDiv = styled.div`
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 1rem;
+`;
 
 
 const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
