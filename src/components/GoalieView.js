@@ -8,9 +8,13 @@ import GoalieSelectors from './GoalieSelectors'
 import Box from './elements/Box'
 
 const ViewBox = styled(Box)`
-  width: 50%;
-  background: #E5F1FF;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-gap: 1rem;
+  background: none;
   color: #4C9CFF;
+  height: 100%;
+  align-content: start;
 `;
 
 const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie}) => {
