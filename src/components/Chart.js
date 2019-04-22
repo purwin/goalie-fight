@@ -6,7 +6,7 @@ import Box from './elements/Box'
 
 const ChartBox = styled(Box)`
   width: 100%;
-  height:100%;
+  height:50vh;
   background: #E5F1FF;
   color: #4C9CFF;
 `;
