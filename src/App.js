@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 import Header from './components/Header'
 import Display from './components/Display'
 import './App.css'
 import * as datum from './data/stats_2018_5v5.json'
 
+library.add(faPlus) // + SVG icon
+library.add(faTimes) // X SVG icon
 
 // Define list of goalies
 let goalieList = [];
