@@ -2,24 +2,27 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-// import Comparables from './Comparables'
-// import Stats from './Stats'
+import Comparables from './Comparables'
+import Stats from './Stats'
 import GoalieView from './GoalieView'
 
 const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, minmax(500px, 1fr));
-  background: mintcream;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  padding: 1rem;
+  background: #B3D5FF;
   color: cadetblue;
+  height: 80vh;
 `;
 
 const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie}) => {
 
   return(
     <MainContainer>
-      {/* <Stats
+      <Stats
         stats={stats}
-      /> */}
+      />
       <GoalieView
         stats={stats}
         goalies={goalies}
@@ -30,7 +33,7 @@ const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, add
         addGoalie={addGoalie}
         pullGoalie={pullGoalie}
       />
-      {/* <Comparables /> */}
+      <Comparables />
     </MainContainer>
   )
 };
