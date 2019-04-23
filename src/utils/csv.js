@@ -114,28 +114,34 @@ csv()
          return goalie
       });
 
-      const newData = goalieData.map(goalie => (
+      const newData = goalieData.map(({name, team, ...stats}) => (
          {
-            p_gp: percentile(goalie.gp, gpArray),
-            p_toi: percentile(goalie.toi, toiArray),
-            p_sa: percentile(goalie.sa, saArray),
-            p_saves: percentile(goalie.saves, savesArray),
-            p_sv: percentile(goalie.sv, svArray),
-            p_gsaa: percentile(goalie.gsaa, gsaaArray),
-            p_gsaa60: percentile(goalie.gsaa60, gsaa60Array),
-            p_xga: percentile(goalie.xga, xgaArray),
-            p_hdsa: percentile(goalie.hdsa, hdsaArray),
-            p_hdsaves: percentile(goalie.hdsaves, hdsavesArray),
-            p_hdsv: percentile(goalie.hdsv, hdsvArray),
-            p_hdgsaa: percentile(goalie.hdgsaa, hdgsaaArray),
-            p_hdgsaa60: percentile(goalie.hdgsaa60, hdgsaa60Array),
-            p_xsv: percentile(goalie.xsv, xsvArray),
-            p_dsv: percentile(goalie.dsv, dsvArray),
-            ...goalie
+            name: name,
+            team: team,
+            percentile: {
+                  p_gp: percentile(stats.gp, gpArray),
+                  p_toi: percentile(stats.toi, toiArray),
+                  p_sa: percentile(stats.sa, saArray),
+                  p_saves: percentile(stats.saves, savesArray),
+                  p_sv: percentile(stats.sv, svArray),
+                  p_gsaa: percentile(stats.gsaa, gsaaArray),
+                  p_gsaa60: percentile(stats.gsaa60, gsaa60Array),
+                  p_xga: percentile(stats.xga, xgaArray),
+                  p_hdsa: percentile(stats.hdsa, hdsaArray),
+                  p_hdsaves: percentile(stats.hdsaves, hdsavesArray),
+                  p_hdsv: percentile(stats.hdsv, hdsvArray),
+                  p_hdgsaa: percentile(stats.hdgsaa, hdgsaaArray),
+                  p_hdgsaa60: percentile(stats.hdgsaa60, hdgsaa60Array),
+                  p_xsv: percentile(stats.xsv, xsvArray),
+                  p_dsv: percentile(stats.dsv, dsvArray),
+            },
+            stats: {
+                  ...stats
+            }
          }
       ));
 
-      fs.writeFile('../../data/stats_2018_5v5.json', JSON.stringify(newData, null, 2), err => {
+      fs.writeFile('../../data/stats_2018_5v5-02.json', JSON.stringify(newData, null, 2), err => {
          if (err) throw err;
          console.log(err);
       });
