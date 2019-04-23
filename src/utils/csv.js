@@ -32,17 +32,22 @@ const percentile = (num, arr) => {
 	return (position.length + (.5 * duplicates.length)) / arr.length * 100
 };
 
+// Function that calculates ranking of a given number
+// Receives a number and an array as arguments
+// Returns number
+const rank = (num, arr) => arr.length - (arr.sort().lastIndexOf(num));
 
 const decimalThree = num => Number(num.toFixed(3));
 
 csv()
 	.fromFile(csvFilePath)
 	.then(jsonObj => {
+		// Define array values
       let gpArray = [];
-      let toiArray = [];
-      let saArray = [];
+		let toiArray = [];
+		let saArray = [];
       let savesArray = [];
-      let svArray = [];
+		let svArray = [];
       let gsaaArray = [];
       let gsaa60Array = [];
       let xgaArray = [];
@@ -55,11 +60,11 @@ csv()
       let dsvArray = [];
       let goalieData = [];
 
+		// Loop through CSV rows, store data
       jsonObj.map(goalie => {
+			// Add values to arrays for calculating percentile, rank
          gpArray.push(parseFloat(goalie.GP))
          toiArray.push(goalie.TOI)
-         gpArray.push(parseFloat(goalie.GP))
-         toiArray.push(parseFloat(goalie.TOI))
          saArray.push(parseFloat(goalie['Shots Against']))
          savesArray.push(parseFloat(goalie.Saves))
          svArray.push(parseFloat(goalie['SV%']))
@@ -112,7 +117,7 @@ csv()
             )
          })
          return goalie
-      });
+		});
 
       const newData = goalieData.map(({name, team, ...stats}) => (
          {
@@ -135,13 +140,30 @@ csv()
                   p_xsv: percentile(stats.xsv, xsvArray),
                   p_dsv: percentile(stats.dsv, dsvArray),
             },
+            rank: {
+                  r_gp: rank(stats.gp, gpArray),
+                  r_toi: rank(stats.toi, toiArray),
+                  r_sa: rank(stats.sa, saArray),
+                  r_saves: rank(stats.saves, savesArray),
+                  r_sv: rank(stats.sv, svArray),
+                  r_gsaa: rank(stats.gsaa, gsaaArray),
+                  r_gsaa60: rank(stats.gsaa60, gsaa60Array),
+                  r_xga: rank(stats.xga, xgaArray),
+                  r_hdsa: rank(stats.hdsa, hdsaArray),
+                  r_hdsaves: rank(stats.hdsaves, hdsavesArray),
+                  r_hdsv: rank(stats.hdsv, hdsvArray),
+                  r_hdgsaa: rank(stats.hdgsaa, hdgsaaArray),
+                  r_hdgsaa60: rank(stats.hdgsaa60, hdgsaa60Array),
+                  r_xsv: rank(stats.xsv, xsvArray),
+                  r_dsv: rank(stats.dsv, dsvArray),
+            },
             stats: {
                   ...stats
             }
          }
       ));
 
-      fs.writeFile('../../data/stats_2018_5v5-02.json', JSON.stringify(newData, null, 2), err => {
+      fs.writeFile('../../data/stats_2018_5v5-03.json', JSON.stringify(newData, null, 2), err => {
          if (err) throw err;
          console.log(err);
       });
