@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import * as datum from '../data/stats_2018_5v5.json'
 
 const config = {
   apiKey: "AIzaSyAYtsSeh9Wx699FbJ3E_cen4P86XKjU_hA",
@@ -11,6 +12,23 @@ const config = {
 
 firebase.initializeApp(config);
 
-firebase.database().ref().set({
-	party: 'on'
+const database = firebase.database();
+
+database.ref()
+  .once('value')
+  .then(snapshot => {
+    const val = snapshot.val();
+    console.log(val);
+  }).catch(e => {
+
+  });
+
+// Loop over data, populate arrays
+datum.default.forEach((item, i) => {
+  // Add goalie name, id to list array
+  database.ref(`2018/5v5/percentile/${i}_${item.team.toLowerCase()}`)
+    .set({
+      id: i,
+      ...item
+    });
 });
