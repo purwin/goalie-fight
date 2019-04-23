@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import * as firebase from 'firebase'
 
 import Header from './components/Header'
 import Display from './components/Display'
+import './firebase/firebase'
 import './App.css'
 import * as datum from './data/stats_2018_5v5.json'
 
 library.add(faPlus) // + SVG icon
 library.add(faTimes) // X SVG icon
+
+const database = firebase.database();
 
 // Define list of goalies
 let goalieList = [];
@@ -37,7 +41,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      data: goalieData,
+      data: undefined,
       stats: [
         {},
       ],
@@ -88,7 +92,6 @@ class App extends Component {
 
     // Remove goalie from this.state.goalies
     pullGoalie = index => {
-      console.log(index);
       this.setState(prevState => {
         return {
           goalies: prevState.goalies.filter((goalie, i) => index !== i),
@@ -99,15 +102,13 @@ class App extends Component {
 
     changeGoalie = (index, newGoalie) => {
       console.log(newGoalie);
-      const fun = this.state.data.filter(item => newGoalie.value === item.id);
-      console.log(fun)
       this.setState(prevState => {
         return {
           goalies: prevState.goalies.map((goalie, i) => (
             (index === i) ? newGoalie : goalie
           )),
           stats: prevState.stats.map((stat, i) => (
-            (index === i) ? prevState.data.filter(item => newGoalie.value === item.id)[0] : stat
+            (index === i) ? prevState.data.filter(item => `${newGoalie.value}_${newGoalie.label}` === `${item.id}_${item.name} (${item.team})`)[0] : stat
           ))
         }
       })
@@ -149,7 +150,24 @@ class App extends Component {
     };
 
 
-    // FUTURE: componentDidMount() {}
+    componentDidMount() {
+      let stateDataArray = [];
+
+      database.ref(`2018/5v5/percentile`)
+        .once('value')
+        .then(snapshot => {
+          snapshot.forEach(childSnapshot => {
+            stateDataArray.push(childSnapshot.val());
+          })
+          this.setState({
+            data: stateDataArray
+          });
+        }).then(() => {
+          console.log(this.state.data)
+        }).catch(e => {
+          console.log(`Error: ${e}`);
+        });
+    }
     // FUTURE: componentDidUpdate(prevProps, prevState) {}
     // FUTURE: componentWillUnmount() {}
 
