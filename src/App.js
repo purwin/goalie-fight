@@ -22,19 +22,19 @@ let goalieList = [];
 let goalieData = [];
 
 // Loop over data, populate arrays
-datum.default.forEach((item, i) => {
-  // Add goalie name, id to list array
-  goalieList.push({
-    id: i,
-    name: `${item.name} (${item.team})`
-  })
+// datum.default.forEach((item, i) => {
+//   // Add goalie name, id to list array
+//   goalieList.push({
+//     id: i,
+//     name: `${item.name} (${item.team})`
+//   })
 
-  // Add all stat items to array
-  goalieData.push({
-    id: i,
-    ...item
-  })
-});
+//   // Add all stat items to array
+//   goalieData.push({
+//     id: i,
+//     ...item
+//   })
+// });
 
 class App extends Component {
   constructor(props) {
@@ -50,20 +50,11 @@ class App extends Component {
       goalies: [
         {
           id: undefined,
-          name: ``
+          name: ``,
+          team: ``
         },
       ],
-      goalieList: goalieList.sort((a, b) => {
-        var nameA = a.name.toUpperCase();
-        var nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      })
+      goalieList: []
     };
 
     this.addGoalie = this.addGoalie.bind(this);
@@ -102,16 +93,27 @@ class App extends Component {
 
     changeGoalie = (index, newGoalie) => {
       console.log(newGoalie);
-      this.setState(prevState => {
-        return {
-          goalies: prevState.goalies.map((goalie, i) => (
-            (index === i) ? newGoalie : goalie
-          )),
-          stats: prevState.stats.map((stat, i) => (
-            (index === i) ? prevState.data.filter(item => `${newGoalie.value}_${newGoalie.label}` === `${item.id}_${item.name} (${item.team})`)[0] : stat
-          ))
-        }
-      })
+      console.log(index);
+
+      const id = `${newGoalie.id}_${newGoalie.team.toLowerCase()}`;
+
+      database.ref(`2018_5v5/goalies/${id}`)
+        .once('value')
+        .then(snapshot => {
+          const {percentile, stats, rank} = snapshot.val();
+          this.setState(prevState => {
+            return {
+              goalies: prevState.goalies.map((goalie, i) => (
+                (index === i) ? newGoalie : goalie
+              )),
+              stats: prevState.stats.map((stat, i) => (
+                (index === i) ? {percentile, stats, rank} : stat
+              ))
+            }
+          })
+        }).catch(e => {
+          console.log(`Error: ${e}`);
+        });
 
     };
 
@@ -151,19 +153,17 @@ class App extends Component {
 
 
     componentDidMount() {
-      let stateDataArray = [];
+      let stateGoalieList = [];
 
-      database.ref(`2018/5v5/percentile`)
+      database.ref(`2018_5v5/list`)
         .once('value')
         .then(snapshot => {
-          snapshot.forEach(childSnapshot => {
-            stateDataArray.push(childSnapshot.val());
+          snapshot.forEach(item => {
+            stateGoalieList.push(item.val());
           })
           this.setState({
-            data: stateDataArray
+            goalieList: stateGoalieList
           });
-        }).then(() => {
-          console.log(this.state.data)
         }).catch(e => {
           console.log(`Error: ${e}`);
         });
