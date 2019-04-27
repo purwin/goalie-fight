@@ -32,19 +32,9 @@ const SelectorAdd = styled(Selector)`
 `;
 
 const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
-	// Set select options
-	let options = [];
-
-	// Loop through goalieList, set goalie ID, name to value, label
-	goalieList.forEach(goalie => {
-		options.push({
-			value: goalie.id,
-			label: goalie.name
-		})
-	});
-
 	// Local onChange func to pass GoalieSelector, new goalie values to state
 	const onChangeGoalie = newGoalie => {
+		console.log(newGoalie);
 		// Send selected option values to state
 		changeGoalie(index, newGoalie)
 	}
@@ -52,11 +42,21 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 	return(
 		<SelectDiv>
 			<Select
-        value={goalie.id}
+        value={goalie.name && goalie}
         onChange={onChangeGoalie}
-				options={options}
+				options={goalieList}
+				getOptionLabel={option =>`${option.name} (${option.team})`}
+				getOptionValue={option =>`${option.name} (${option.team})`}
       />
-			{index > 0 ? <Selector onClick={() => pullGoalie(index)}><FontAwesomeIcon icon="times" /></Selector> : <SelectorAdd onClick={addGoalie}><FontAwesomeIcon icon="plus" /></SelectorAdd>}
+			{
+				index > 0 ?
+					<Selector onClick={() => pullGoalie(index)}>
+						<FontAwesomeIcon icon="times" />
+					</Selector> :
+					<SelectorAdd onClick={addGoalie}>
+						<FontAwesomeIcon icon="plus" />
+					</SelectorAdd>
+			}
 		</SelectDiv>
 	)
 };
