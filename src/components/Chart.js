@@ -16,19 +16,6 @@ const Chart = ({stats}) => {
   // Store goalie index as chart keys
   const keys = stats.map((item, i) => i);
 
-  const stats_test = [
-    {
-      id: 1,
-      name: `Andy Moog`,
-      gsaa: 18.5,
-      sv: 92.1,
-      xsv: 91.8,
-      hdsv: 88.78,
-      hdgsaa: -4.33,
-      w: 22
-    }
-  ];
-
   // Set up stat keys
   const statMap = [
     {
@@ -53,17 +40,6 @@ const Chart = ({stats}) => {
     },
   ];
 
-  const statsArrays = stats.reduce((data, line) => {
-    if (line.name) {
-      Object.keys(line).forEach(key => {
-        data[key] ? data[key].push(line[key]) : data[key] = [line[key]];
-      });
-    }
-
-    return data;
-  }, {});
-
-
   // Combine stats prop and statMap to single array of objects
   const data = statMap.reduce((data, line) => {
     let statObj = {
@@ -81,36 +57,6 @@ const Chart = ({stats}) => {
     data.push(statObj)
     return data;
   }, []);
-
-  console.log(data);
-
-  // const data_test = [
-  //   {
-  //     "stat": "SV%",
-  //     [stats[0].name]: stats[0].sv,
-  //     [goalie2]: 89.7
-  //   },
-  //   {
-  //     "stat": "HDSV%",
-  //     [stats[0].name]: stats[0].hdsv,
-  //     [goalie2]: 77.5
-  //   },
-  //   {
-  //     "stat": "GSAA",
-  //     [stats[0].name]: stats[0].gsaa,
-  //     [goalie2]: -3
-  //   },
-  //   {
-  //     "stat": "HDGSAA",
-  //     [stats[0].name]: stats[0].hdgsaa,
-  //     [goalie2]: 98
-  //   },
-  //   {
-  //     "stat": "xSV%",
-  //     [stats[0].name]: stats[0].xsv,
-  //     [goalie2]: 98
-  //   },
-  // ];
 
   return(
     <ChartBox>
