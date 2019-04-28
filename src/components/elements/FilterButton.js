@@ -11,8 +11,9 @@ const FilterButton = styled.button`
   }
 `;
 
-export default ({active, label}) => (
+export default ({active, label, buttonClick, ...props}) => (
   <FilterButton
+    onClick={buttonClick}
     active={active}
   >
     {label}
