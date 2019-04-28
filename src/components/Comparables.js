@@ -5,7 +5,7 @@ import Box from './elements/Box'
 class Comparables extends Component {
   render() {
     return(
-      <Box title={`Comparables`}>
+      <Box title={`COMPARABLES`}>
         <div className="box-body">
           <ul>
             <li>

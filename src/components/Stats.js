@@ -49,7 +49,7 @@ const TableRowSpace = styled.tr`
 
 const Stats = ({stats, rankTotal, ...props}) => {
   return(
-    <Box title={`Stats`}>
+    <Box title={`STATS`}>
       <div className="box-body">
       {stats.map((goalie, i) => {
         if (goalie.name) {
