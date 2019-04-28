@@ -6,9 +6,8 @@ const HeaderBar = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 10vh;
-  background: papayawhip;
-  color: palevioletred;
+  background: #001F4D;
+  color: #E5F1FF;
   padding: 1rem;
 `;
 
