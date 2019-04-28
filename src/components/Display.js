@@ -22,6 +22,7 @@ const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, add
     <MainContainer>
       <Stats
         stats={stats}
+        rankTotal={goalieList.length}
       />
       <GoalieView
         stats={stats}
