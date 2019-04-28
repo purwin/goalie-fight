@@ -8,33 +8,11 @@ import Header from './components/Header'
 import Display from './components/Display'
 import './firebase/firebase'
 import './App.css'
-import * as datum from './data/stats_2018_5v5.json'
 
 library.add(faPlus) // + SVG icon
 library.add(faTimes) // X SVG icon
 
 const database = firebase.database();
-
-// Define list of goalies
-let goalieList = [];
-
-// Define all goalie stats
-let goalieData = [];
-
-// Loop over data, populate arrays
-// datum.default.forEach((item, i) => {
-//   // Add goalie name, id to list array
-//   goalieList.push({
-//     id: i,
-//     name: `${item.name} (${item.team})`
-//   })
-
-//   // Add all stat items to array
-//   goalieData.push({
-//     id: i,
-//     ...item
-//   })
-// });
 
 class App extends Component {
   constructor(props) {
@@ -100,14 +78,14 @@ class App extends Component {
       database.ref(`2018_5v5/goalies/${id}`)
         .once('value')
         .then(snapshot => {
-          const {percentile, stats, rank} = snapshot.val();
+          const data = snapshot.val();
           this.setState(prevState => {
             return {
               goalies: prevState.goalies.map((goalie, i) => (
                 (index === i) ? newGoalie : goalie
               )),
               stats: prevState.stats.map((stat, i) => (
-                (index === i) ? {percentile, stats, rank} : stat
+                (index === i) ? data : stat
               ))
             }
           })
@@ -161,6 +139,12 @@ class App extends Component {
           snapshot.forEach(item => {
             stateGoalieList.push(item.val());
           })
+          console.log(typeof stateGoalieList);
+          stateGoalieList.sort((a, b) => (
+            a.name > b.name ? 1 :
+            (a.name < b.name ? -1 : 0)
+          ))
+          console.log(stateGoalieList);
           this.setState({
             goalieList: stateGoalieList
           });
