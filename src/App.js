@@ -39,14 +39,9 @@ class App extends Component {
     this.pullGoalie = this.pullGoalie.bind(this);
     this.changeGoalie = this.changeGoalie.bind(this);
 
-    this.addSituation = this.addSituation.bind(this);
-    this.removeSituation = this.removeSituation.bind(this);
+    this.setFilter = this.setFilter.bind(this);
 
-    this.addTime = this.addTime.bind(this);
-    this.removeTime = this.removeTime.bind(this);
-
-    this.resetFilters = this.resetFilters.bind(this);
-  
+    this.setSituation = this.setSituation.bind(this);  
   }
 
     // Add goalie to this.state.goalies
@@ -72,7 +67,7 @@ class App extends Component {
     changeGoalie = (index, newGoalie) => {
       const id = `${newGoalie.id}_${newGoalie.team.toLowerCase()}`;
 
-      database.ref(`2018_5v5/goalies/${id}`)
+      database.ref(`2018/5v5/goalies/${id}`)
         .once('value')
         .then(snapshot => {
           const data = snapshot.val();
@@ -94,43 +89,22 @@ class App extends Component {
 
     // FUTURE: Function to retrieve stats
 
-    addFilter = (stateName, val) => {
-      this.setState(prevState => {
-        return {
-          stateName: prevState.stateName.concat(val)
-        }
-      })
-    };
-
-    removeFilter = (stateName, val) => {
-      this.setState(prevState => {
-        return {
-          stateName: prevState.stateName.filter(filter => filter !== val)
-        }
-      });
-    };
-
-    addSituation = val => this.addFilter(this.state.situation, val);
-
-    removeSituation = val => this.removeFilter(this.state.situation, val);
-
-    addTime = val => this.addFilter("time", val);
-
-    removeTime = val => this.removeFilter("time", val);
-
-    // Reset filters function
-    resetFilters = () => {
+    setFilter = (stateName, val) => {
       this.setState({
-        time: `2019`,
-        situation: `ALL`
+        [stateName]: val
       })
+    };
+
+    setSituation = val => {
+      // Call setFilter with passed argument
+      this.setFilter(`situation`, val)
     };
 
 
     componentDidMount() {
       let stateGoalieList = [];
 
-      database.ref(`2018_5v5/list`)
+      database.ref(`2018/list`)
         .once('value')
         .then(snapshot => {
           snapshot.forEach(item => {
@@ -162,6 +136,7 @@ class App extends Component {
           goalieList={this.state.goalieList}
           time={this.state.time}
           situation={this.state.situation}
+          setSituation={this.setSituation}
           changeGoalie={this.changeGoalie}
           addGoalie={this.addGoalie}
           pullGoalie={this.pullGoalie}
