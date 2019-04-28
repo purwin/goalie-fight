@@ -47,9 +47,7 @@ const TableRowSpace = styled.tr`
   }
 `;
 
-const Stats = ({stats}) => {
-  console.log(stats);
-
+const Stats = ({stats, rankTotal, ...props}) => {
   return(
     <Box title={`Stats`}>
       <div className="box-body">
@@ -63,69 +61,69 @@ const Stats = ({stats}) => {
                   <tr>
                     <th></th>
                     <th>Value</th>
-                    <th>Rank</th>
+                    <th>Rank/{rankTotal}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th>GP</th>
-                    <td>{goalie.gp}</td>
-                    <td>{goalie.p_gp.toFixed(2)}</td>
+                    <td>{goalie.stats.gp}</td>
+                    <td>{goalie.rank.r_gp}</td>
                   </tr>
                   <tr>
                     <th>TOI</th>
-                    <td>{goalie.toi.toFixed(2)}</td>
-                    <td>{goalie.p_toi.toFixed(2)}</td>
+                    <td>{goalie.stats.toi.toFixed(2)}</td>
+                    <td>{goalie.rank.r_toi}</td>
                   </tr>
                   <tr>
                     <th>SHOTS</th>
-                    <td>{goalie.sa}</td>
-                    <td>{goalie.p_sa.toFixed(2)}</td>
+                    <td>{goalie.stats.sa}</td>
+                    <td>{goalie.rank.r_sa}</td>
                   </tr>
                   <tr>
                     <th>SHOTS/60</th>
-                    <td>{(goalie.sa / goalie.toi * 60).toFixed(3)}</td>
-                    <td>{goalie.p_sa.toFixed(2)}</td>
+                    <td>{(goalie.stats.sa / goalie.stats.toi * 60).toFixed(3)}</td>
+                    <td>{goalie.rank.r_sa}</td>
                   </tr>
                   <TableRowSpace>
                     <th>&#x2004;&#x2004;SV%</th>
-                    <td>{goalie.sv.toFixed(3)}</td>
-                    <td>{goalie.p_sv.toFixed(2)}</td>
+                    <td>{goalie.stats.sv.toFixed(3)}</td>
+                    <td>{goalie.rank.r_sv}</td>
                   </TableRowSpace>
                   <tr>
                     <th>xSV%</th>
-                    <td>{goalie.xsv.toFixed(3)}</td>
-                    <td>{goalie.p_xsv.toFixed(2)}</td>
+                    <td>{goalie.stats.xsv.toFixed(3)}</td>
+                    <td>{goalie.rank.r_xsv}</td>
                   </tr>
                   <tr>
                     <th>dSV%</th>
-                    <td>{goalie.dsv.toFixed(3)}</td>
-                    <td>{goalie.p_dsv.toFixed(2)}</td>
+                    <td>{goalie.stats.dsv.toFixed(3)}</td>
+                    <td>{goalie.rank.r_dsv}</td>
                   </tr>
                   <TableRowSpace>
                     <th>GSAA</th>
-                    <td>{goalie.gsaa.toFixed(3)}</td>
-                    <td>{goalie.p_gsaa.toFixed(2)}</td>
+                    <td>{goalie.stats.gsaa.toFixed(3)}</td>
+                    <td>{goalie.rank.r_gsaa}</td>
                   </TableRowSpace>
                   <tr>
                     <th>GSAA/60</th>
-                    <td>{goalie.gsaa60.toFixed(3)}</td>
-                    <td>{goalie.p_gsaa60.toFixed(2)}</td>
+                    <td>{goalie.stats.gsaa60.toFixed(3)}</td>
+                    <td>{goalie.rank.r_gsaa60}</td>
                   </tr>
                   <TableRowSpace>
                     <th>HDSV%</th>
-                    <td>{goalie.hdsv.toFixed(3)}</td>
-                    <td>{goalie.p_hdsv.toFixed(2)}</td>
+                    <td>{goalie.stats.hdsv.toFixed(3)}</td>
+                    <td>{goalie.rank.r_hdsv}</td>
                   </TableRowSpace>
                   <tr>
                     <th>HDGSAA</th>
-                    <td>{goalie.hdgsaa.toFixed(3)}</td>
-                    <td>{goalie.p_hdgsaa.toFixed(2)}</td>
+                    <td>{goalie.stats.hdgsaa.toFixed(3)}</td>
+                    <td>{goalie.rank.r_hdgsaa}</td>
                   </tr>
                   <tr>
                     <th>HDGSAA/60</th>
-                    <td>{goalie.hdgsaa60.toFixed(3)}</td>
-                    <td>{goalie.p_hdgsaa60.toFixed(2)}</td>
+                    <td>{goalie.stats.hdgsaa60.toFixed(3)}</td>
+                    <td>{goalie.rank.r_hdgsaa60}</td>
                   </tr>
                 </tbody>
               </StatTable>
