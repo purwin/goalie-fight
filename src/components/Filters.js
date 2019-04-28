@@ -11,11 +11,11 @@ const FiltersDiv = styled.div`
 `;
 
 const Filters = ({time, situation}) => {
-  const timeFilters = [`2019`, `CAREER`];
-  const situationFilters = [`EVENS`, `PK`, `ALL`];
+  const timeFilters = [`2017–18`, `2018–19`];
+  const situationFilters = [`EVENS`, `5v5`, `PK`, `4v5`, `ALL`];
 
   return(
-    <div className="filters">
+    <FiltersDiv>
       <div className="time">
       {timeFilters.map((filter, i) => (
         <FilterButton
@@ -39,7 +39,7 @@ const Filters = ({time, situation}) => {
           label={`RESET`}
         />
       </div>
-    </div>
+    </FiltersDiv>
   )
 };
 
