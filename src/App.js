@@ -70,9 +70,6 @@ class App extends Component {
     };
 
     changeGoalie = (index, newGoalie) => {
-      console.log(newGoalie);
-      console.log(index);
-
       const id = `${newGoalie.id}_${newGoalie.team.toLowerCase()}`;
 
       database.ref(`2018_5v5/goalies/${id}`)
@@ -139,12 +136,12 @@ class App extends Component {
           snapshot.forEach(item => {
             stateGoalieList.push(item.val());
           })
-          console.log(typeof stateGoalieList);
+
           stateGoalieList.sort((a, b) => (
             a.name > b.name ? 1 :
             (a.name < b.name ? -1 : 0)
           ))
-          console.log(stateGoalieList);
+
           this.setState({
             goalieList: stateGoalieList
           });
