@@ -46,6 +46,7 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 				getOptionLabel={option =>`${option.name} (${option.team})`}
 				getOptionValue={option =>`${option.name} (${option.team})`}
 				menuShouldScrollIntoView={false}
+				autoFocus={true}
       />
 			{
 				index > 0 ?
