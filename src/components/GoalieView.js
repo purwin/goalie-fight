@@ -15,15 +15,17 @@ const ViewBox = styled(Box)`
   color: #4C9CFF;
   height: 100%;
   align-content: start;
+  overflow-y: visible;
 `;
 
-const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie}) => {
+const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation}) => {
 
   return(
     <ViewBox>
       <Filters
         time={time}
         situation={situation}
+        setSituation={setSituation}
       />
       <Chart
         stats={stats}
