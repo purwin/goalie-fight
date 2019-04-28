@@ -13,6 +13,7 @@ const GoalieName = styled.h3`
   text-align: left;
   font-size: 1.5rem;
   margin: .5rem 0;
+  color: ${props => props.color ? props.color : "inherit"}
 `;
 
 const StatTable = styled.table`
@@ -47,6 +48,15 @@ const TableRowSpace = styled.tr`
   }
 `;
 
+const colors = [
+  `#E8C0A0`,
+  `#F47560`,
+  `#F1E05C`,
+  `#E7A838`,
+  `#61CDBB`,
+  `#98E2D5`,
+];
+
 const Stats = ({stats, rankTotal, ...props}) => {
   return(
     <Box title={`STATS`}>
@@ -55,7 +65,11 @@ const Stats = ({stats, rankTotal, ...props}) => {
         if (goalie.name) {
           return(
             <GoalieStat key={i}>
-              <GoalieName>{goalie.name} ({goalie.team})</GoalieName>
+              <GoalieName
+                color={colors[i % colors.length]}
+              >
+                {goalie.name} ({goalie.team})
+              </GoalieName>
               <StatTable>
                 <thead>
                   <tr>
