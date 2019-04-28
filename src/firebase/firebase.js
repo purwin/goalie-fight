@@ -17,13 +17,13 @@ const database = firebase.database();
 // Loop over data, populate arrays
 datum.default.forEach((item, i) => {
   // Add goalie name, id to list array
-  database.ref(`2018_5v5/goalies/${i}_${item.team.toLowerCase()}`)
+  database.ref(`2018/5v5/goalies/${i}_${item.team.toLowerCase()}`)
     .set({
       id: i,
       ...item
     });
   
-    database.ref(`2018_5v5/list/${i}_${item.team.toLowerCase()}`).set({
+    database.ref(`2018/list/${i}_${item.team.toLowerCase()}`).set({
       id: i,
       name: item.name,
       team: item.team
