@@ -10,7 +10,7 @@ const FiltersDiv = styled.div`
   color: aquamarine;
 `;
 
-const Filters = ({time, situation}) => {
+const Filters = ({time, situation, setSituation}) => {
   const timeFilters = [`2017–18`, `2018–19`];
   const situationFilters = [`EVENS`, `5v5`, `PK`, `4v5`, `ALL`];
 
@@ -31,6 +31,7 @@ const Filters = ({time, situation}) => {
             key={i}
             active={situation === filter}
             label={filter}
+            buttonClick={e => setSituation(e.target.innerText)}
           />
         ))}
       </div>
