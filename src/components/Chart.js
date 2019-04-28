@@ -9,6 +9,7 @@ const ChartBox = styled(Box)`
   height:50vh;
   background: #E5F1FF;
   color: #4C9CFF;
+  overflow-y: visible;
 `;
 
 const Chart = ({stats}) => {
@@ -119,27 +120,6 @@ const Chart = ({stats}) => {
             },
           },
         }}
-        legends={[
-          {
-            "anchor": "top-left",
-            "direction": "column",
-            "translateX": -50,
-            "translateY": -40,
-            "itemWidth": 80,
-            "itemHeight": 20,
-            "itemTextColor": "#333",
-            "symbolSize": 12,
-            "symbolShape": "square",
-            "effects": [
-              {
-                "on": "hover",
-                "style": {
-                  "itemTextColor": "0066E5"
-                }
-              },
-            ]
-          }
-        ]}
       />
     </ChartBox>
   )
