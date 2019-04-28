@@ -1,6 +1,5 @@
 import React from 'react'
 import Select from 'react-select';
-import { ID } from 'postcss-selector-parser';
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -34,7 +33,6 @@ const SelectorAdd = styled(Selector)`
 const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
 	// Local onChange func to pass GoalieSelector, new goalie values to state
 	const onChangeGoalie = newGoalie => {
-		console.log(newGoalie);
 		// Send selected option values to state
 		changeGoalie(index, newGoalie)
 	}
@@ -47,6 +45,7 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 				options={goalieList}
 				getOptionLabel={option =>`${option.name} (${option.team})`}
 				getOptionValue={option =>`${option.name} (${option.team})`}
+				menuShouldScrollIntoView={false}
       />
 			{
 				index > 0 ?
