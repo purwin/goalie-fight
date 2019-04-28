@@ -6,7 +6,6 @@ import GoalieSelector from './GoalieSelector'
 const SelectDiv = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-gap: 1rem;
 `;
 
 
@@ -15,7 +14,7 @@ const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoal
 	const goalieListSorted = goalieList.sort((a, b) => a.id - b.id);
 
 	return(
-		<div>
+		<SelectDiv>
 			{goalies.map((goalie, i) => (
 				<GoalieSelector
 					key={i}
@@ -27,7 +26,7 @@ const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoal
 					pullGoalie={pullGoalie}
 				/>
 			))}
-		</div>
+		</SelectDiv>
 	);
 }
 
