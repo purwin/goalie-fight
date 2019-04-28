@@ -19,6 +19,7 @@ const Selector = styled.button`
 	color: #004FB2;
 	margin: 0 0 2.5px;
 	font-size: 1rem;
+	cursor: pointer;
 
 	&:active {
 		margin: 2.5px 0 0 0;
@@ -46,7 +47,6 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 				getOptionLabel={option =>`${option.name} (${option.team})`}
 				getOptionValue={option =>`${option.name} (${option.team})`}
 				menuShouldScrollIntoView={false}
-				autoFocus={true}
       />
 			{
 				index > 0 ?
