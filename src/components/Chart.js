@@ -12,7 +12,6 @@ const ChartBox = styled(Box)`
 `;
 
 const Chart = ({stats}) => {
-  console.log(stats)
   // Store goalie index as chart keys
   const keys = stats.map((item, i) => i);
 
@@ -20,28 +19,29 @@ const Chart = ({stats}) => {
   const statMap = [
     {
       name: `SV%`,
-      stat: `sv`,
+      stat: `p_sv`,
     },
     {
       name: `dSV%`,
-      stat: `dsv`,
+      stat: `p_dsv`,
     },
     {
       name: `GSAA/60`,
-      stat: `gsaa60`,
+      stat: `p_gsaa60`,
     },
     {
       name: `HDGSAA/60`,
-      stat: `hdgsaa60`,
+      stat: `p_hdgsaa60`,
     },
     {
       name: `HDSV%`,
-      stat: `hdsv`,
+      stat: `p_hdsv`,
     },
   ];
 
   // Combine stats prop and statMap to single array of objects
   const data = statMap.reduce((data, line) => {
+    // Set stat/stat name key/value pair
     let statObj = {
       stat: line.name
     }
@@ -50,13 +50,27 @@ const Chart = ({stats}) => {
     stats.forEach((stat, i) => {
       // Assign goalie dude index as key
       // If goalie stat defined, assign as value, otherwise 0
-      stat[line.stat] ? statObj[i] = stat[`p_${line.stat}`] : statObj[i] = 0;
-      // console.log(statsArrays[line.stat])
+      stat.percentile && stat.percentile[line.stat] ?
+      statObj[i] = stat.percentile[line.stat] : 
+      statObj[i] = 0;
     });
 
     data.push(statObj)
     return data;
   }, []);
+
+  // const nivo_data = [
+  //   {
+  //     "stat": "SV%",
+  //     [goalie1]: stats[0].sv,
+  //     [goalie2]: 89.7
+  //   },
+  //   {
+  //     "stat": "HDSV%",
+  //     [goalie1]: stats[0].hdsv,
+  //     [goalie2]: 77.5
+  //   },
+  // ];
 
   return(
     <ChartBox>
