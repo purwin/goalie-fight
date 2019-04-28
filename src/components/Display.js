@@ -13,7 +13,6 @@ const MainContainer = styled.div`
   padding: 1rem;
   background: #B3D5FF;
   color: cadetblue;
-  height: 80vh;
 `;
 
 const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie}) => {
