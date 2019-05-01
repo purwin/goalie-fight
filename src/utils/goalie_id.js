@@ -11,13 +11,13 @@ const file = '../../data/goalie_ids.json';
 // Add new name, id to goalie_id.json
 
 
-// Function to get id value
-const getID = (name, arr) => {
+// Function to find ID value of name arg in array arg
+const findID = (name, arr) => {
 	// Search array for name, get ID value
 	const match = arr.filter(item => item.name === name)[0];
 	console.log(match)
 	// If name not in array, return false
-	return match.id ? match.id : false;
+	return match ? match.id : false;
 };
 
 
@@ -42,30 +42,43 @@ const newGoalie = (obj, arr) => {
 
 // Function to write new goalie to json file
 const addGoalie = (file, data) => {
-	// write newGoalie to file
-	fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8')
+	// write JSON with new goalie to file
+	try {
+		fs.writeFileSync(file, JSON.stringify(data, null, 2));
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 
-const returnID = (obj, idData) => {
-	let id = getID(obj.name, idData);
+const returnID = name => {
+	const goalieIDs = JSON.parse(fs.readFileSync(file, 'utf8'));
+	let id = findID(name, goalieIDs);
 
+	// If ID not found, create new ID and add new goalie to JSON file
 	if (!id) {
+		console.log(`ID not found`);
+
 		// Get new ID
-		id = newID(idData);
-	
-		// Concat new goalie to JSON
-		const newJSON = newGoalie({
-			id: id,
-			name: obj.name
-		}, idData)
-	
-		// Add updated JSON file
+		id = newID(goalieIDs);
+		console.log(`NEW ID: ${id}`);
+
+		// Append new goalie to goalie ID JSON
+		const newJSON = newGoalie(
+			{
+				id: id,
+				name: name
+			},
+			goalieIDs
+		)
+
+		// Write updated JSON to file
 		addGoalie(file, newJSON)
 	}
 
+	// Return ID val
 	return(id);
-}
+};
 
 
 
@@ -76,36 +89,17 @@ try {
 	const idData = JSON.parse(fs.readFileSync(file, 'utf8'));
 
 	data.forEach(item => {
-		// returnID(item, idData)
-		console.log(item)
+		returnID(item.name, idData)
+		// console.log(item)
 	})
-
-	let id = getID(data[0].name, idData);
-
-	returnID(data[0]);
-
-	if (!id) {
-		// Get new ID
-		id = newID(idData);
-
-		// Concat new goalie to JSON
-		const newJSON = newGoalie({
-			id: id,
-			name: data[0].name
-		}, idData)
-
-		// Add updated JSON file
-		addGoalie(file, newJSON)
-	}
-	console.log(id);
-	return id;
 
 } catch (err) {
   console.error(err);
 }
 
-// try {
-// 	fs.writeFileSync(writeFile, JSON.stringify(data, null, 2));
-// } catch (err) {
-// 	console.log(err);
-// }
+
+// module.exports = {
+
+// };
+
+// exports.returnID = name => {}
