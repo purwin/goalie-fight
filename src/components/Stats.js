@@ -86,7 +86,7 @@ const Stats = ({stats, rankTotal, ...props}) => {
                   </tr>
                   <tr>
                     <th>TOI</th>
-                    <td>{goalie.stats.toi.toFixed(2)}</td>
+                    <td>{parseInt(goalie.stats.toi)}:{(`0` + parseInt((goalie.stats.toi - parseInt(goalie.stats.toi)) * 60)).slice(-2)}</td>
                     <td>{goalie.rank.r_toi}</td>
                   </tr>
                   <tr>
