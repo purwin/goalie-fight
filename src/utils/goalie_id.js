@@ -1,21 +1,15 @@
 const fs = require('fs');
 
-const goalieJSON = '../../data/stats_2018_5v5-03.json';
+const goalieJSON = '../../data/JSON/5v5/stats_2018_5v5.json';
 const file = '../../data/goalie_ids.json';
 
-// Get goalie name as arg
-// Read goalie_id.json
-// check for name in json
-// Return id if found
-// If no id found, get max id #
-// Add new name, id to goalie_id.json
+module.exports = {};
 
 
 // Function to find ID value of name arg in array arg
 const findID = (name, arr) => {
 	// Search array for name, get ID value
 	const match = arr.filter(item => item.name === name)[0];
-	console.log(match)
 	// If name not in array, return false
 	return match ? match.id : false;
 };
@@ -51,7 +45,13 @@ const addGoalie = (file, data) => {
 };
 
 
-const returnID = name => {
+// Function that receives a goalie name as string arg
+// Checks goalie_id.json for goalie ID
+// If found, returns ID
+// If no ID found, get max ID #
+// Add new name, ID to goalie_id.json
+// Then returns new goalie ID
+exports.returnID = name => {
 	const goalieIDs = JSON.parse(fs.readFileSync(file, 'utf8'));
 	let id = findID(name, goalieIDs);
 
@@ -85,21 +85,13 @@ const returnID = name => {
 // Read goalie_id.json file
 try {
 	// Get goalie ID list
-  const data = JSON.parse(fs.readFileSync(goalieJSON, 'utf8'));
+	const data = JSON.parse(fs.readFileSync(goalieJSON, 'utf8'));
 	const idData = JSON.parse(fs.readFileSync(file, 'utf8'));
 
 	data.forEach(item => {
-		returnID(item.name, idData)
-		// console.log(item)
+		exports.returnID(item.name, idData)
 	})
 
 } catch (err) {
-  console.error(err);
+	console.error(err);
 }
-
-
-// module.exports = {
-
-// };
-
-// exports.returnID = name => {}
