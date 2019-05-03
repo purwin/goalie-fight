@@ -3,8 +3,6 @@ const fs = require('fs');
 const goalieJSON = '../../data/JSON/5v5/stats_2018_5v5.json';
 const file = '../../data/goalie_ids.json';
 
-module.exports = {};
-
 
 // Function to find ID value of name arg in array arg
 const findID = (name, arr) => {
