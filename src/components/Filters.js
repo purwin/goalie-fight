@@ -5,27 +5,37 @@ import FilterButton from './elements/FilterButton'
 
 const FiltersDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 2fr;
   background: yellow;
   color: aquamarine;
 `;
 
+const SituationFiltersDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`;
+
+const TimeFiltersDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+`;
+
 const Filters = ({time, situation, setSituation}) => {
   const timeFilters = [`2017–18`, `2018–19`];
-  const situationFilters = [`EVENS`, `5v5`, `PK`, `4v5`, `ALL`];
+  const situationFilters = [`EVENS`, `5v5`, `ALL`, `PK`, `4v5`, ];
 
   return(
     <FiltersDiv>
-      <div className="time">
-      {timeFilters.map((filter, i) => (
-        <FilterButton
-          key={i}
-          active={time === filter}
-          label={filter}
-        />
-      ))}
-      </div>
-      <div className="situation">
+      <TimeFiltersDiv>
+        {timeFilters.map((filter, i) => (
+          <FilterButton
+            key={i}
+            active={time === filter}
+            label={filter}
+          />
+        ))}
+      </TimeFiltersDiv>
+      <SituationFiltersDiv>
         {situationFilters.map((filter, i) => (
           <FilterButton
             key={i}
@@ -34,12 +44,10 @@ const Filters = ({time, situation, setSituation}) => {
             buttonClick={e => setSituation(e.target.innerText)}
           />
         ))}
-      </div>
-      <div className="reset">
         <FilterButton
           label={`RESET`}
         />
-      </div>
+      </SituationFiltersDiv>
     </FiltersDiv>
   )
 };
