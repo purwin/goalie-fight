@@ -31,12 +31,17 @@ const SelectorAdd = styled(Selector)`
 	color: #F5F9FF;
 `;
 
-const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
+const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGoalie, pullGoalie, color}) => {
 	// Local onChange func to pass GoalieSelector, new goalie values to state
 	const onChangeGoalie = newGoalie => {
 		// Send selected option values to state
 		changeGoalie(index, newGoalie)
 	}
+
+	// Pass color props to selected option
+	const styleColor = {
+		singleValue: (styles) => ({ ...styles, color: color, fontWeight: `bold` })
+	};
 
 	return(
 		<SelectDiv>
@@ -47,6 +52,7 @@ const GoalieSelector = ({index, goalie, goalieList, changeGoalie, addGoalie, pul
 				getOptionLabel={option =>`${option.name} (${option.team})`}
 				getOptionValue={option =>`${option.name} (${option.team})`}
 				menuShouldScrollIntoView={false}
+				styles={styleColor}
       />
 			{
 				index > 0 ?
