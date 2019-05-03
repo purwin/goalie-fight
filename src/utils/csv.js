@@ -49,7 +49,11 @@ const percentile = (num, arr) => {
 // Function that calculates ranking of a given number
 // Receives a number and an array as arguments
 // Returns number
-const rank = (num, arr) => arr.sort((a, b) => b - a).indexOf(num) + 1;
+const rank = (num, arr) => (
+   // If num is null/NaN, return null
+   // Otherwise return sorted index val
+   Number.isNaN(Number(num)) ? null : arr.sort((a, b) => b - a).indexOf(num) + 1
+);
 
 
 // Function that generates a number with 3 decimal places
@@ -189,8 +193,8 @@ csv()
          })
 
          return goalie
-		});
-
+      });
+      
       // Map goalieData to create an array of goalie stats objects
       const newData = goalieData.map(({name, team, ...stats}) => (
          {
