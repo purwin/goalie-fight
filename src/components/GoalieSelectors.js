@@ -8,6 +8,15 @@ const SelectDiv = styled.div`
 	grid-template-columns: 1fr;
 `;
 
+const colors = [
+  `#E8C0A0`,
+  `#F47560`,
+  `#F1E05C`,
+  `#E7A838`,
+  `#61CDBB`,
+  `#98E2D5`,
+];
+
 
 const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
 
@@ -20,10 +29,12 @@ const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoal
 					key={i}
 					index={i}
 					goalie={goalie}
+					goalies={goalies}
 					goalieList={goalieListSorted}
 					changeGoalie={changeGoalie}
 					addGoalie={addGoalie}
 					pullGoalie={pullGoalie}
+					color={colors[i % colors.length]}
 				/>
 			))}
 		</SelectDiv>
