@@ -1,7 +1,7 @@
 const csv = require('csvtojson')
 const fs = require('fs')
 
-const csvFilePath = '../../data/stats_2018_5v5.csv'
+const csvFilePath = '../../data/CSV/5v5/stats_2018_5v5.csv'
 
 // Function that calculates save percentage
 // Receives 2 arguments: saves and shots (numbers as string or int)
@@ -35,7 +35,7 @@ const percentile = (num, arr) => {
 // Function that calculates ranking of a given number
 // Receives a number and an array as arguments
 // Returns number
-const rank = (num, arr) => arr.length - (arr.sort().lastIndexOf(num));
+const rank = (num, arr) => arr.sort((a, b) => b - a).indexOf(num) + 1;
 
 const decimalThree = num => Number(num.toFixed(3));
 
@@ -64,7 +64,7 @@ csv()
       jsonObj.map(goalie => {
 			// Add values to arrays for calculating percentile, rank
          gpArray.push(parseFloat(goalie.GP))
-         toiArray.push(goalie.TOI)
+         toiArray.push(parseFloat(goalie.TOI))
          saArray.push(parseFloat(goalie['Shots Against']))
          savesArray.push(parseFloat(goalie.Saves))
          svArray.push(parseFloat(goalie['SV%']))
@@ -163,7 +163,7 @@ csv()
          }
       ));
 
-      fs.writeFile('../../data/stats_2018_5v5-03.json', JSON.stringify(newData, null, 2), err => {
+      fs.writeFile('../../data/JSON/5v5/stats_2018_5v5.json', JSON.stringify(newData, null, 2), err => {
          if (err) throw err;
          console.log(err);
       });
