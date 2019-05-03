@@ -24,6 +24,7 @@ const newID = arr => {
 };
 
 
+// Function to create a new goalie object w/ ID and add to array of objects
 const newGoalie = (obj, arr) => {
 	const goalie = {
 		id: newID(arr),
@@ -35,7 +36,7 @@ const newGoalie = (obj, arr) => {
 
 
 // Function to write new goalie to json file
-const addGoalie = (file, data) => {
+const writeData = (file, data) => {
 	// write JSON with new goalie to file
 	try {
 		fs.writeFileSync(file, JSON.stringify(data, null, 2));
@@ -73,7 +74,7 @@ exports.returnID = name => {
 		)
 
 		// Write updated JSON to file
-		addGoalie(file, newJSON)
+		writeData(file, newJSON)
 	}
 
 	// Return ID val
