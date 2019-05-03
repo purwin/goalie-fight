@@ -13,7 +13,7 @@ const GoalieName = styled.h3`
   text-align: left;
   font-size: 1.5rem;
   margin: .5rem 0;
-  color: ${props => props.color ? props.color : "inherit"}
+  color: ${props => props.color || "inherit"}
 `;
 
 const StatTable = styled.table`
