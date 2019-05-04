@@ -104,7 +104,7 @@ class App extends Component {
     componentDidMount() {
       let stateGoalieList = [];
 
-      database.ref(`2018/list`)
+      database.ref(`2018/options`)
         .once('value')
         .then(snapshot => {
           snapshot.forEach(item => {
