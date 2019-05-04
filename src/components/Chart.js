@@ -20,23 +20,23 @@ const Chart = ({stats}) => {
   const statMap = [
     {
       name: `SV%`,
-      stat: `p_sv`,
+      stat: `sv`,
     },
     {
       name: `dSV%`,
-      stat: `p_dsv`,
+      stat: `dsv`,
     },
     {
       name: `GSAA/60`,
-      stat: `p_gsaa60`,
+      stat: `gsaa60`,
     },
     {
       name: `HDGSAA/60`,
-      stat: `p_hdgsaa60`,
+      stat: `hdgsaa60`,
     },
     {
       name: `HDSV%`,
-      stat: `p_hdsv`,
+      stat: `hdsv`,
     },
   ];
 
