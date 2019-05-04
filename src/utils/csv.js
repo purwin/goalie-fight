@@ -5,7 +5,7 @@ const goalie_id = require('./goalie_id')
 
 
 // File path of CSV file to read
-const csvFilePath = '../../data/CSV/PK/stats_2018_PK.csv'
+const csvFilePath = '../../data/CSV/4v5/stats_2018_4v5.csv'
 
 
 // Function that calculates save percentage
@@ -244,7 +244,7 @@ csv()
          }
       ));
 
-      fs.writeFile('../../data/JSON/PK/stats_2018_PK.json', JSON.stringify(newData, null, 2), err => {
+      fs.writeFile('../../data/JSON/4v5/stats_2018_4v5.json', JSON.stringify(newData, null, 2), err => {
          if (err) throw err;
          console.log(err);
       });
