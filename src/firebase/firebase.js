@@ -1,6 +1,8 @@
 import * as firebase from 'firebase'
 import * as datumAll from '../data/ALL/stats_2018_ALL.json'
 import * as datum5v5 from '../data/5v5/stats_2018_5v5.json'
+import * as datumEVENS from '../data/EVENS/stats_2018_EVENS.json'
+import * as datumPK from '../data/PK/stats_2018_PK.json'
 import * as datum4v5 from '../data/4v5/stats_2018_4v5.json'
 
 const config = {
@@ -36,6 +38,26 @@ datumAll.default.forEach((item, i) => {
 datum5v5.default.forEach((item, i) => {
   // Add goalie name, id to list array
   database.ref(`2018/5v5/goalies/${item.id}_${item.team.toLowerCase()}`)
+    .set({
+      id: item.id,
+      ...item
+    });
+});
+
+// Loop over data, populate arrays
+datumEVENS.default.forEach((item, i) => {
+  // Add goalie name, id to list array
+  database.ref(`2018/EVENS/goalies/${item.id}_${item.team.toLowerCase()}`)
+    .set({
+      id: item.id,
+      ...item
+    });
+});
+
+// Loop over data, populate arrays
+datumPK.default.forEach((item, i) => {
+  // Add goalie name, id to list array
+  database.ref(`2018/PK/goalies/${item.id}_${item.team.toLowerCase()}`)
     .set({
       id: item.id,
       ...item
