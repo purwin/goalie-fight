@@ -23,7 +23,7 @@ class App extends Component {
       stats: [
         {},
       ],
-      time: `2019`,
+      time: `2018`,
       situation: `ALL`,
       goalies: [
         {
@@ -41,7 +41,9 @@ class App extends Component {
 
     this.setFilter = this.setFilter.bind(this);
 
-    this.setSituation = this.setSituation.bind(this);  
+    this.setSituation = this.setSituation.bind(this);
+
+    this.getStatDB = this.getStatDB.bind(this);
   }
 
     // Add goalie to this.state.goalies
@@ -67,25 +69,61 @@ class App extends Component {
     changeGoalie = (index, newGoalie) => {
       const id = `${newGoalie.id}_${newGoalie.team.toLowerCase()}`;
 
-      database.ref(`2018/5v5/goalies/${id}`)
-        .once('value')
-        .then(snapshot => {
-          const data = snapshot.val();
-          this.setState(prevState => {
-            return {
-              goalies: prevState.goalies.map((goalie, i) => (
-                (index === i) ? newGoalie : goalie
-              )),
-              stats: prevState.stats.map((stat, i) => (
-                (index === i) ? data : stat
-              ))
-            }
-          })
-        }).catch(e => {
-          console.log(`Error: ${e}`);
-        });
+      this.getStatDB(newGoalie).then(data => {
+        console.log(data);
+        
+        this.setState(prevState => {
+          return {
+            goalies: prevState.goalies.map((goalie, i) => (
+              (index === i) ? newGoalie : goalie
+            )),
+            stats: prevState.stats.map((stat, i) => (
+              (index === i) ? data : stat
+            ))
+          }
+        })
+
+      });
+
+      // database.ref(`2018/ALL/goalies/${id}`)
+      //   .once('value')
+      //   .then(snapshot => {
+      //     const data = snapshot.val();
+      //     this.setState(prevState => {
+      //       return {
+      //         goalies: prevState.goalies.map((goalie, i) => (
+      //           (index === i) ? newGoalie : goalie
+      //         )),
+      //         stats: prevState.stats.map((stat, i) => (
+      //           (index === i) ? data : stat
+      //         ))
+      //       }
+      //     })
+      //   }).catch(e => {
+      //     console.log(`Error: ${e}`);
+      //   });
 
     };
+
+    getStatDB = goalie => {
+      return new Promise((resolve, reject) => {
+        const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
+        console.log(id);
+        
+        console.log(this.state.time);
+        console.log(this.state.situation);
+        
+        database.ref(`${this.state.time}/${this.state.situation}/goalies/${id}`)
+          .once('value')
+          .then(snapshot => {
+            resolve(snapshot.val());
+          }).catch(e => {
+            reject(`Error: ${e}`);
+          });
+      });
+      
+
+    }
 
     // FUTURE: Function to retrieve stats
 
@@ -97,7 +135,17 @@ class App extends Component {
 
     setSituation = val => {
       // Call setFilter with passed argument
-      this.setFilter(`situation`, val)
+      // this.setFilter(`situation`, val)
+      this.setState({
+        situation: val
+      }, () => {
+        this.state.goalies.forEach((goalie, i) => {
+          this.changeGoalie(i, goalie);
+          // console.log(goalie);
+          console.log(this.state.situation);
+          console.log(this.state.data);
+        });
+      })
     };
 
 
