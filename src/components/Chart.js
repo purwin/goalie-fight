@@ -88,23 +88,31 @@ const Chart = ({stats}) => {
         }}
         curve="linearClosed"
         borderWidth={2}
-        borderColor="inherit"
+        borderColor={{
+          "from": "color",
+          "modifiers": []
+        }}
         gridLevels={5}
         gridShape="circular"
         gridLabelOffset={16}
         enableDots={true}
         dotSize={8}
-        dotColor="inherit"
-        dotBorderWidth={0}
-        dotBorderColor="#ffffff"
+        dotColor={"#E5F1FF"}
+        dotBorderWidth={2}
+        dotBorderColor={{
+            "from": "color"
+        }}
         enableDotLabel={false}
         dotLabel="value"
         dotLabelYOffset={-12}
-        colors="nivo"
+        colors={{
+          "scheme": "nivo"
+        }}
         colorBy="key"
         fillOpacity={0.1}
+        blendMode="multiply"
         animate={true}
-        motionStiffness={90}
+        motionStiffness={120}
         motionDamping={15}
         isInteractive={false}
         tooltip={({ id, value, color }) => (
