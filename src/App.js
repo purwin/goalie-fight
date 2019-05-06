@@ -67,7 +67,6 @@ class App extends Component {
     };
 
     changeGoalie = (index, newGoalie) => {
-      const id = `${newGoalie.id}_${newGoalie.team.toLowerCase()}`;
 
       this.getStatDB(newGoalie).then(data => {
         console.log(data);
@@ -85,26 +84,9 @@ class App extends Component {
 
       });
 
-      // database.ref(`2018/ALL/goalies/${id}`)
-      //   .once('value')
-      //   .then(snapshot => {
-      //     const data = snapshot.val();
-      //     this.setState(prevState => {
-      //       return {
-      //         goalies: prevState.goalies.map((goalie, i) => (
-      //           (index === i) ? newGoalie : goalie
-      //         )),
-      //         stats: prevState.stats.map((stat, i) => (
-      //           (index === i) ? data : stat
-      //         ))
-      //       }
-      //     })
-      //   }).catch(e => {
-      //     console.log(`Error: ${e}`);
-      //   });
-
     };
 
+    // Function that 
     getStatDB = goalie => {
       return new Promise((resolve, reject) => {
         const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
@@ -133,17 +115,15 @@ class App extends Component {
       })
     };
 
+    // Function to set 
     setSituation = val => {
-      // Call setFilter with passed argument
-      // this.setFilter(`situation`, val)
+      // Set state.situation w/ passed arg
       this.setState({
         situation: val
       }, () => {
         this.state.goalies.forEach((goalie, i) => {
-          this.changeGoalie(i, goalie);
-          // console.log(goalie);
-          console.log(this.state.situation);
-          console.log(this.state.data);
+          // Call changeGoalie if goalie has defined properties
+          goalie.name && this.changeGoalie(i, goalie);
         });
       })
     };
