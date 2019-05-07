@@ -46,20 +46,25 @@ const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGo
 	return(
 		<SelectDiv>
 			<Select
-        value={goalie.name && goalie}
-        onChange={onChangeGoalie}
+				value={goalie.name && goalie}
+				onChange={onChangeGoalie}
 				options={goalieList}
 				getOptionLabel={option =>`${option.name} (${option.team})`}
 				getOptionValue={option =>`${option.name} (${option.team})`}
 				menuShouldScrollIntoView={false}
 				styles={styleColor}
-      />
+				isOptionDisabled={(option) => goalies.find(goalie => (
+					goalie.id === option.id && goalie.name === option.name && goalie.team === option.team
+				))}
+			/>
 			{
 				index > 0 ?
 					<Selector onClick={() => pullGoalie(index)}>
 						<FontAwesomeIcon icon="times" />
 					</Selector> :
-					<SelectorAdd onClick={addGoalie}>
+					<SelectorAdd
+						onClick={addGoalie}
+					>
 						<FontAwesomeIcon icon="plus" />
 					</SelectorAdd>
 			}
