@@ -2,12 +2,21 @@ import styled from 'styled-components'
 import React from 'react'
 
 const FilterButton = styled.button`
-  background: ${props => props.active ? "palevioletred" : "white"};
-  color: ${props => props.active ? "white" : "palevioletred"};
+  border: 2px solid transparent;
+  border-radius: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  background: ${props => props.active ? `#004FB2` : `#E5F1FF`};
+  color: ${props => props.active ? `#F5F9FF` : `#0066E5`};
 
   :hover {
-    background: ${props => props.active ? "lightcoral" : "lightgray"};
-    color: ${props => props.active ? "lightgray" : "lightcoral"};
+    background: ${props => props.active ? `#001F4C` : `#80B8FF`};
+    color: ${props => props.active ? `#F5F9FF` : `#001F4C`};
+  }
+
+  :active {
+    border-top: 4px solid transparent;
+    border-bottom: 0;
   }
 `;
 
