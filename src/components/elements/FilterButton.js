@@ -7,7 +7,7 @@ const FilterButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   background: ${props => props.active ? `#004FB2` : `#E5F1FF`};
-  color: ${props => props.active ? `#F5F9FF` : `#0066E5`};
+  color: ${props => props.active ? `#F5F9FF` : `#004FB2`};
 
   :hover {
     background: ${props => props.active ? `#001F4C` : `#80B8FF`};
