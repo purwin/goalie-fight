@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import Comparables from './Comparables'
 import Stats from './Stats'
 import GoalieView from './GoalieView'
 
@@ -34,7 +33,6 @@ const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, add
         pullGoalie={pullGoalie}
         setSituation={setSituation}
       />
-      <Comparables />
     </MainContainer>
   )
 };
