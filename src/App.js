@@ -117,6 +117,10 @@ class App extends Component {
 
     // Function to set 
     setSituation = val => {
+      // Do nothing if selected situation is already set
+      if (this.state.situation === val) {
+        return
+      }
       // Set state.situation w/ passed arg
       this.setState({
         situation: val
