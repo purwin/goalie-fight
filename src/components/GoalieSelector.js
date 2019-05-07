@@ -21,7 +21,12 @@ const Selector = styled.button`
 	font-size: 1rem;
 	cursor: pointer;
 
-	&:active {
+	:hover {
+		background: #E5F1FF;
+		color: #001F4C;
+	}
+
+	:active {
 		margin: 2.5px 0 0 0;
 	}
 `;
@@ -29,6 +34,11 @@ const Selector = styled.button`
 const SelectorAdd = styled(Selector)`
 	background: #004FB2;
 	color: #F5F9FF;
+
+	:hover {
+		background: #001F4C;
+		color: #F5F9FF;
+	}
 `;
 
 const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGoalie, pullGoalie, color}) => {
