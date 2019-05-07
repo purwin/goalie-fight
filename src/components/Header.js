@@ -32,7 +32,6 @@ const Header = () => (
     <Nav>
       <li>ABOUT</li>
       <li>GLOSSARY</li>
-      <li>RESOURCES</li>
     </Nav>
   </HeaderBar>
 );
