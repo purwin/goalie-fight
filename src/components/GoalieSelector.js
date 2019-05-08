@@ -20,6 +20,7 @@ const Selector = styled.button`
 	margin: 0 0 2.5px;
 	font-size: 1rem;
 	cursor: pointer;
+	transition: font-size .5s ease;
 
 	:hover {
 		background: #E5F1FF;
@@ -39,6 +40,16 @@ const SelectorAdd = styled(Selector)`
 		background: #001F4C;
 		color: #F5F9FF;
 	}
+
+	:disabled {
+		background: tomato;
+		font-size: 0;
+	}
+
+	:disabled:active {
+		background: tomato;
+		margin: 0 0 2.5px;
+	}
 `;
 
 const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGoalie, pullGoalie, color}) => {
@@ -52,6 +63,7 @@ const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGo
 	const styleColor = {
 		singleValue: (styles) => ({ ...styles, color: color, fontWeight: `bold` })
 	};
+
 
 	return(
 		<SelectDiv>
@@ -74,6 +86,7 @@ const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGo
 					</Selector> :
 					<SelectorAdd
 						onClick={addGoalie}
+						disabled={goalies.length >= 8}
 					>
 						<FontAwesomeIcon icon="plus" />
 					</SelectorAdd>
