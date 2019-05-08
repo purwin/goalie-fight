@@ -28,23 +28,63 @@ const options = [
 	{ value: '2018', label: '2018–19' },
 ];
 
-const Filters = ({time, situation, setSituation}) => {
+// Pass style props to Year Selects
+const styleYear = {
+  control: (base, state) => ({
+    ...base,
+    height: `25px`,
+    'min-height': `25px`,
+    'border-radius': `0`,
+    background: `#E5F1FF`,
+    color: `#004FB2`,
+    'border-width': `0`,
+    cursor: `pointer`,
+
+  }),
+  singleValue: (styles) => ({
+    ...styles,
+    color: `#004FB2`,
+    width: `100%`,
+    margin: `0`,
+    'max-width': `calc(100% - 16px)`,
+  }),
+  placeholder: (styles) => ({
+    ...styles,
+    color: `#004FB2`,
+    width: `100%`,
+    margin: `0`,
+    'max-width': `calc(100% - 16px)`,
+  })
+};
+
+
+const Filters = ({time, situation, setSituation, resetState, ...props}) => {
   const situationFilters = [`5v5`, `4v5`, `EVENS`, `PK`, `ALL`, ];
 
   return(
     <FiltersDiv>
       <Select
-        value={options.filter(option => (option.value === time))}
+        value={options.filter(option => option.value === time)}
         isDisabled={true}
+        escapeClearsValue={false}
+        isClearable={false}
+        isSearchable={false}
         onChange={(e) => {console.log(e)}}
         options={options}
+        styles={styleYear}
+        components={{ DropdownIndicator: null, IndicatorSeparator: null }}
       />
       <Select
         value={false}
         isDisabled={true}
+        escapeClearsValue={false}
+        isClearable={false}
+        isSearchable={false}
         onChange={(e) => {console.log(e)}}
         options={options}
-        placeholder={`Year ...`}
+        placeholder={`––`}
+        styles={styleYear}
+        components={{ DropdownIndicator: null, IndicatorSeparator: null }}
       />
       
       {situationFilters.map((filter, i) => (
@@ -57,6 +97,7 @@ const Filters = ({time, situation, setSituation}) => {
       ))}
       <FilterButton
         label={`RESET`}
+        buttonClick={resetState}
       />
     
     </FiltersDiv>
