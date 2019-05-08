@@ -14,36 +14,41 @@ library.add(faTimes) // X SVG icon
 
 const database = firebase.database();
 
+const defaultState = {
+  data: undefined,
+  stats: [
+    {},
+  ],
+  time: `2018`,
+  situation: `ALL`,
+  goalies: [
+    {
+      id: undefined,
+      name: ``,
+      team: ``
+    },
+  ],
+  goalieList: []
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: undefined,
-      stats: [
-        {},
-      ],
-      time: `2018`,
-      situation: `ALL`,
-      goalies: [
-        {
-          id: undefined,
-          name: ``,
-          team: ``
-        },
-      ],
-      goalieList: []
+      ...defaultState
     };
 
     this.addGoalie = this.addGoalie.bind(this);
     this.pullGoalie = this.pullGoalie.bind(this);
     this.changeGoalie = this.changeGoalie.bind(this);
 
-    this.setFilter = this.setFilter.bind(this);
-
     this.setSituation = this.setSituation.bind(this);
 
     this.getStatDB = this.getStatDB.bind(this);
+    this.getGoalieOptions = this.getGoalieOptions.bind(this);
+
+    this.resetState = this.resetState.bind(this);
   }
 
     // Add goalie to this.state.goalies
@@ -66,11 +71,11 @@ class App extends Component {
       })
     };
 
+    // Set goalie to a new obj value
     changeGoalie = (index, newGoalie) => {
-
       this.getStatDB(newGoalie).then(data => {
         console.log(data);
-        
+
         this.setState(prevState => {
           return {
             goalies: prevState.goalies.map((goalie, i) => (
@@ -86,36 +91,7 @@ class App extends Component {
 
     };
 
-    // Function that 
-    getStatDB = goalie => {
-      return new Promise((resolve, reject) => {
-        const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
-        console.log(id);
-        
-        console.log(this.state.time);
-        console.log(this.state.situation);
-        
-        database.ref(`${this.state.time}/${this.state.situation}/goalies/${id}`)
-          .once('value')
-          .then(snapshot => {
-            resolve(snapshot.val());
-          }).catch(e => {
-            reject(`Error: ${e}`);
-          });
-      });
-      
-
-    }
-
-    // FUTURE: Function to retrieve stats
-
-    setFilter = (stateName, val) => {
-      this.setState({
-        [stateName]: val
-      })
-    };
-
-    // Function to set 
+    // Function to set state.situation and update data to reflect new value
     setSituation = val => {
       // Do nothing if selected situation is already set
       if (this.state.situation === val) {
@@ -126,28 +102,50 @@ class App extends Component {
         situation: val
       }, () => {
         this.state.goalies.forEach((goalie, i) => {
-          // Call changeGoalie if goalie has defined properties
+          // Call changeGoalie if goalie has defined properties to get new data
           goalie.name && this.changeGoalie(i, goalie);
         });
       })
     };
 
+    // Function that sends a request for goalie data from Firebase
+    // Returns a promise with goalie data as an obj
+    getStatDB = goalie => {
+      return new Promise((resolve, reject) => {
+        const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
+        console.log(id);
 
-    componentDidMount() {
+        console.log(this.state.time);
+        console.log(this.state.situation);
+
+        database.ref(`${this.state.time}/${this.state.situation}/goalies/${id}`)
+          .once('value')
+          .then(snapshot => {
+            resolve(snapshot.val());
+          }).catch(e => {
+            reject(`Error: ${e}`);
+          });
+
+      });
+
+    };
+
+    // Function that pulls goalie options from database
+    getGoalieOptions = () => {
       let stateGoalieList = [];
-
-      database.ref(`2018/options`)
+      
+      database.ref(`${this.state.time}/options`)
         .once('value')
         .then(snapshot => {
           snapshot.forEach(item => {
             stateGoalieList.push(item.val());
           })
-
+      
           stateGoalieList.sort((a, b) => (
             a.name > b.name ? 1 :
             (a.name < b.name ? -1 : 0)
           ))
-
+      
           this.setState({
             goalieList: stateGoalieList
           });
@@ -155,8 +153,24 @@ class App extends Component {
           console.log(`Error: ${e}`);
         });
     }
-    // FUTURE: componentDidUpdate(prevProps, prevState) {}
-    // FUTURE: componentWillUnmount() {}
+
+    // Function to reset all state data
+    resetState = () => {
+      // Set default state
+      this.setState({
+        ...defaultState
+      })
+
+      // Call function to re-populate goalie options
+      this.getGoalieOptions()
+    };
+
+
+    componentDidMount() {
+      // Call function to populate goalie options
+      this.getGoalieOptions()
+    }
+
 
   render() {
     return(
@@ -172,6 +186,7 @@ class App extends Component {
           changeGoalie={this.changeGoalie}
           addGoalie={this.addGoalie}
           pullGoalie={this.pullGoalie}
+          resetState={this.resetState}
         />
       </div>
     )
