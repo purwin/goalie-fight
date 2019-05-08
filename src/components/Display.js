@@ -14,7 +14,7 @@ const MainContainer = styled.div`
   color: cadetblue;
 `;
 
-const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation}) => {
+const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation, resetState, ...props}) => {
 
   return(
     <MainContainer>
@@ -32,6 +32,7 @@ const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, add
         addGoalie={addGoalie}
         pullGoalie={pullGoalie}
         setSituation={setSituation}
+        resetState={resetState}
       />
     </MainContainer>
   )

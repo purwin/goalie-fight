@@ -18,7 +18,7 @@ const ViewBox = styled(Box)`
   overflow-y: visible;
 `;
 
-const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation}) => {
+const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation, resetState, ...props}) => {
 
   return(
     <ViewBox>
@@ -26,6 +26,7 @@ const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, 
         time={time}
         situation={situation}
         setSituation={setSituation}
+        resetState={resetState}
       />
       <Chart
         stats={stats}
