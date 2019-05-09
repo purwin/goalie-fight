@@ -51,9 +51,9 @@ const Chart = ({stats}) => {
     stats.forEach((stat, i) => {
       // Assign goalie dude index as key
       // If goalie stat defined, assign as value, otherwise 0
-      stat.percentile && stat.percentile[line.stat] ?
-      statObj[i] = stat.percentile[line.stat] : 
-      statObj[i] = 0;
+      stat.percentile && stat.percentile[line.stat]
+      ? statObj[i] = stat.percentile[line.stat]
+      : statObj[i] = 0;
     });
 
     data.push(statObj)
