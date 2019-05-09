@@ -28,6 +28,7 @@ const defaultState = {
       team: ``
     },
   ],
+  activeGoalie: undefined,
   goalieList: []
 }
 
@@ -44,6 +45,7 @@ class App extends Component {
     this.changeGoalie = this.changeGoalie.bind(this);
 
     this.setSituation = this.setSituation.bind(this);
+    this.setActiveGoalie = this.setActiveGoalie.bind(this);
 
     this.getStatDB = this.getStatDB.bind(this);
     this.getGoalieOptions = this.getGoalieOptions.bind(this);
@@ -64,9 +66,17 @@ class App extends Component {
     // Remove goalie from this.state.goalies
     pullGoalie = index => {
       this.setState(prevState => {
+        // Filter pulled goalie out of goalie list
+        const newGoalies = prevState.goalies.filter((goalie, i) => index !== i);
+
+        // Define goalie ID to compare against activeGoalie
+        const pulledGoalieID = `${prevState.goalies[index].id}_${prevState.goalies[index].team}`;
+
         return {
-          goalies: prevState.goalies.filter((goalie, i) => index !== i),
+          goalies: newGoalies,
           stats: prevState.stats.filter((stat, i) => index !== i),
+          // If activeGoalie is removed, set to last goalie in array
+          activeGoalie: prevState.activeGoalie === pulledGoalieID ? `${newGoalies[newGoalies.length - 1].id}_${newGoalies[newGoalies.length - 1].team}` : prevState.activeGoalie
         }
       })
     };
@@ -106,6 +116,24 @@ class App extends Component {
           goalie.name && this.changeGoalie(i, goalie);
         });
       })
+
+    };
+
+
+    // Function to set state.activeGoalie
+    // Called when new goalie is added to the chart or selected from Stats component
+    setActiveGoalie = ({id, team}) => {
+      // Set unique value
+      const val = `${id}_${team}`;
+
+      console.log(`Active goalie: ${val}`);
+
+      // If goalie is not currently active, set state
+      if (val !== this.state.activeGoalie) {
+        this.setState({
+          activeGoalie: val
+        });
+      }
     };
 
     // Function that sends a request for goalie data from Firebase
@@ -152,7 +180,7 @@ class App extends Component {
         }).catch(e => {
           console.log(`Error: ${e}`);
         });
-    }
+    };
 
     // Function to reset all state data
     resetState = () => {
@@ -179,6 +207,8 @@ class App extends Component {
         <Display 
           stats={this.state.stats}
           goalies={this.state.goalies}
+          activeGoalie={this.state.activeGoalie}
+          setActiveGoalie={this.setActiveGoalie}
           goalieList={this.state.goalieList}
           time={this.state.time}
           situation={this.state.situation}
