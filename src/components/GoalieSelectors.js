@@ -8,17 +8,8 @@ const SelectDiv = styled.div`
 	grid-template-columns: 1fr;
 `;
 
-const colors = [
-  `#E8C0A0`,
-  `#F47560`,
-  `#F1E05C`,
-  `#E7A838`,
-  `#61CDBB`,
-  `#98E2D5`,
-];
 
-
-const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoalie}) => {
+const GoalieSelectors = ({goalies, goalieList, changeGoalie, setActiveGoalie, addGoalie, pullGoalie, colors}) => {
 
 	const goalieListSorted = goalieList.sort((a, b) => a.id - b.id);
 
@@ -32,6 +23,7 @@ const GoalieSelectors = ({goalies, goalieList, changeGoalie, addGoalie, pullGoal
 					goalies={goalies}
 					goalieList={goalieListSorted}
 					changeGoalie={changeGoalie}
+					setActiveGoalie={setActiveGoalie}
 					addGoalie={addGoalie}
 					pullGoalie={pullGoalie}
 					color={colors[i % colors.length]}
