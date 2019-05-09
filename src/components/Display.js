@@ -14,13 +14,26 @@ const MainContainer = styled.div`
   color: cadetblue;
 `;
 
-const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation, resetState, ...props}) => {
+const Display = ({stats, goalies, activeGoalie, setActiveGoalie, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation, resetState, ...props}) => {
+
+  // Define Nivo colors to pass to Stats and GoalieView as props
+  const colors = [
+    `#E8C0A0`,
+    `#F47560`,
+    `#F1E05C`,
+    `#E7A838`,
+    `#61CDBB`,
+    `#98E2D5`,
+  ];
 
   return(
     <MainContainer>
       <Stats
         stats={stats}
         rankTotal={goalieList.length}
+        activeGoalie={activeGoalie}
+        setActiveGoalie={setActiveGoalie}
+        colors={colors}
       />
       <GoalieView
         stats={stats}
@@ -29,10 +42,12 @@ const Display = ({stats, goalies, goalieList, time, situation, changeGoalie, add
         time={time}
         situation={situation}
         changeGoalie={changeGoalie}
+        setActiveGoalie={setActiveGoalie}
         addGoalie={addGoalie}
         pullGoalie={pullGoalie}
         setSituation={setSituation}
         resetState={resetState}
+        colors={colors}
       />
     </MainContainer>
   )
@@ -47,6 +62,10 @@ Display.propTypes = {
   changeGoalie: PropTypes.func,
   addGoalie: PropTypes.func,
   pullGoalie: PropTypes.func,
+  activeGoalie: PropTypes.string,
+  setActiveGoalie: PropTypes.func,
+  setSituation: PropTypes.func,
+  resetState: PropTypes.func,
 }
 
 export default Display
