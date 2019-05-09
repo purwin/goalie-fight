@@ -18,7 +18,7 @@ const ViewBox = styled(Box)`
   overflow-y: visible;
 `;
 
-const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation, resetState, ...props}) => {
+const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, setActiveGoalie, addGoalie, pullGoalie, setSituation, resetState, colors, ...props}) => {
 
   return(
     <ViewBox>
@@ -35,8 +35,10 @@ const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, 
         goalies={goalies}
         goalieList={goalieList}
         changeGoalie={changeGoalie}
+        setActiveGoalie={setActiveGoalie}
         addGoalie={addGoalie}
         pullGoalie={pullGoalie}
+        colors={colors}
       />
     </ViewBox>
   )
