@@ -44,6 +44,7 @@ const SelectorAdd = styled(Selector)`
 	:disabled {
 		background: tomato;
 		font-size: 0;
+		cursor: not-allowed;
 	}
 
 	:disabled:active {
@@ -52,16 +53,22 @@ const SelectorAdd = styled(Selector)`
 	}
 `;
 
-const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGoalie, pullGoalie, color}) => {
+const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, setActiveGoalie, addGoalie, pullGoalie, color}) => {
 	// Local onChange func to pass GoalieSelector, new goalie values to state
 	const onChangeGoalie = newGoalie => {
 		// Send selected option values to state
 		changeGoalie(index, newGoalie)
+		// Set new state.activeGoalie
+		setActiveGoalie(newGoalie)
 	}
 
 	// Pass color props to selected option
 	const styleColor = {
-		singleValue: (styles) => ({ ...styles, color: color, fontWeight: `bold` })
+		singleValue: (styles) => ({
+			...styles,
+			color: color,
+			fontWeight: `bold`
+		})
 	};
 
 
@@ -80,13 +87,13 @@ const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, addGo
 				))}
 			/>
 			{
-				index > 0 ?
-					<Selector onClick={() => pullGoalie(index)}>
+				index > 0
+				? <Selector onClick={() => pullGoalie(index)}>
 						<FontAwesomeIcon icon="times" />
-					</Selector> :
-					<SelectorAdd
+					</Selector>
+				: <SelectorAdd
 						onClick={addGoalie}
-						disabled={goalies.length >= 8}
+						disabled={goalies.length > 7}
 					>
 						<FontAwesomeIcon icon="plus" />
 					</SelectorAdd>
