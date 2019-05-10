@@ -16,6 +16,7 @@ const GoalieName = styled.h3`
   font-size: 1.5rem;
   margin: .5rem 0;
   color: ${props => props.color || 'inherit'}
+  cursor: pointer;
 `;
 
 
@@ -39,7 +40,7 @@ const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...prop
                 {goalie.name} ({goalie.team})
               </GoalieName>
               <AnimateHeight
-                duration={500}
+                duration={300}
                 height={`${goalie.id}_${goalie.team}` === activeGoalie ? 'auto' : 0 }
               >
                 <StatsTable
