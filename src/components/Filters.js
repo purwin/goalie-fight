@@ -39,7 +39,6 @@ const styleYear = {
     color: `#004FB2`,
     'border-width': `0`,
     cursor: `pointer`,
-
   }),
   singleValue: (styles) => ({
     ...styles,
@@ -65,7 +64,7 @@ const Filters = ({time, situation, setSituation, resetState, ...props}) => {
     <FiltersDiv>
       <Select
         value={options.filter(option => option.value === time)}
-        isDisabled={true}
+        isDisabled={false}
         escapeClearsValue={false}
         isClearable={false}
         isSearchable={false}
@@ -82,7 +81,7 @@ const Filters = ({time, situation, setSituation, resetState, ...props}) => {
         isSearchable={false}
         onChange={(e) => {console.log(e)}}
         options={options}
-        placeholder={`––`}
+        placeholder={`– –`}
         styles={styleYear}
         components={{ DropdownIndicator: null, IndicatorSeparator: null }}
       />
