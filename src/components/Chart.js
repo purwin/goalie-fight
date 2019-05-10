@@ -97,7 +97,7 @@ const Chart = ({stats}) => {
         gridLabelOffset={16}
         enableDots={true}
         dotSize={8}
-        dotColor={"#E5F1FF"}
+        dotColor={{ from: 'color', modifiers: [] }}
         dotBorderWidth={2}
         dotBorderColor={{
             "from": "color"
@@ -109,7 +109,7 @@ const Chart = ({stats}) => {
           "scheme": "nivo"
         }}
         colorBy="key"
-        fillOpacity={0.1}
+        fillOpacity={0.05}
         blendMode="multiply"
         animate={true}
         motionStiffness={120}
