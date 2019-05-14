@@ -6,8 +6,8 @@ import Box from './elements/Box'
 import StatsTable from './elements/StatsTable'
 
 const GoalieStat = styled.div`
-  margin: 1rem;
-  padding: 0 0 1rem 0;
+  margin: 0 1rem;
+  padding: 0;
   border-bottom: 3px solid #80B8FF;
 `;
 
@@ -19,6 +19,12 @@ const GoalieName = styled.h3`
   cursor: pointer;
 `;
 
+const BoxBody = styled.div`
+  margin: 1rem 0;
+  background: #E5F1FF;
+  overflow: scroll;
+`;
+
 
 const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...props}) => {
     // Function that sets state.activeGoalie
@@ -28,7 +34,7 @@ const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...prop
 
   return(
     <Box title={`STATS`}>
-      <div className="box-body">
+      <BoxBody>
       {stats.map((goalie, i) => {
         if (goalie.name) {
           return(
@@ -54,7 +60,7 @@ const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...prop
 
         return false;
       })}
-      </div>
+      </BoxBody>
     </Box>
   );
 };
