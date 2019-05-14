@@ -39,6 +39,9 @@ const styleYear = {
     color: `#004FB2`,
     'border-width': `0`,
     cursor: `pointer`,
+    "&:hover": {
+      background: `#80B8FF`,
+    }
   }),
   singleValue: (styles) => ({
     ...styles,
