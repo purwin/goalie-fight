@@ -5,7 +5,7 @@ const goalie_id = require('./goalie_id')
 
 
 // File path of CSV file to read
-const csvFilePath = '../../data/CSV/5v5/stats_2018_5v5.csv'
+const csvFilePath = '../../data/CSV/PK/stats_2018_PK.csv'
 
 
 // Function that calculates save percentage
@@ -180,11 +180,11 @@ const statCalculations = arr => (
          hdsv: exports.calc_SV(goalie.hdsaves, goalie.hdsa),
          xsv: exports.calc_SV((goalie.sa - goalie.xga), goalie.sa),
          dsv: exports.calc_DSV(
-               exports.calc_SV(goalie.saves, goalie.sa),
-               exports.calc_SV(
-                  (goalie.sa - goalie.xga),
-                  goalie.sa
-               )
+            exports.calc_SV(goalie.saves, goalie.sa),
+            exports.calc_SV(
+               (goalie.sa - goalie.xga),
+               goalie.sa
+            )
          ),
          gsaa60: exports.calc_PER60(goalie.gsaa, goalie.toi),
          hdgsaa60: exports.calc_PER60(goalie.hdgsaa, goalie.toi),
@@ -220,144 +220,21 @@ const getGoalieData = obj => (
 csv()
 	.fromFile(csvFilePath)
 	.then(jsonObj => {
-		// Define array values for calculating rank and percentiles
-		let gpArray = [];
-		let toiArray = [];
-		let saArray = [];
-		let savesArray = [];
-		let svArray = [];
-		let gsaaArray = [];
-		let gsaa60Array = [];
-		let xgaArray = [];
-		let hdsaArray = [];
-		let hdsavesArray = [];
-		let hdsvArray = [];
-		let hdgsaaArray = [];
-		let hdgsaa60Array = [];
-		let xsvArray = [];
-		let dsvArray = [];
-		let goalieData = [];
-
-		// Loop through CSV rows, store data
-      jsonObj.map(goalie => {
-         // Add values to arrays for calculating percentile, rank
-         gpArray.push(parseFloat(goalie.GP))
-         toiArray.push(parseFloat(goalie.TOI))
-         saArray.push(parseFloat(goalie['Shots Against']))
-         savesArray.push(parseFloat(goalie.Saves))
-         svArray.push(parseFloat(goalie['SV%']))
-         gsaaArray.push(parseFloat(goalie.GSAA))
-         // Calculate per-60 rate from gsaa
-         gsaa60Array.push(exports.calc_PER60(goalie.GSAA, goalie.TOI))
-         xgaArray.push(parseFloat(goalie['xG Against']))
-         hdsaArray.push(parseFloat(goalie['HD Shots Against']))
-         hdsavesArray.push(parseFloat(goalie['HD Saves']))
-         hdsvArray.push(parseFloat(goalie['HDSV%']))
-         hdgsaaArray.push(parseFloat(goalie.HDGSAA))
-         // Calculate per-60 rate from hdgsaa
-         hdgsaa60Array.push(exports.calc_PER60(goalie.HDGSAA, goalie.TOI))
-         // Calculate xSV% using SV% func
-         xsvArray.push(decimalThree(exports.calc_SV(
-            (goalie['Shots Against'] - goalie['xG Against']),
-            goalie['Shots Against']
-         )))
-         // Calculate dSV% using SV% func
-         dsvArray.push(exports.calc_DSV(
-            goalie['SV%'],
-            exports.calc_SV(
-               (goalie['Shots Against'] - goalie['xG Against']),
-               goalie['Shots Against']
-            )
-         ))
-
-         goalieData.push({
-            name: goalie.Player,
-            team: goalie.Team.toUpperCase().replace(/[^A-Z]/, ''),
-            gp: parseFloat(goalie.GP),
-            toi: parseFloat(goalie.TOI),
-            sa: parseFloat(goalie['Shots Against']),
-            saves: parseFloat(goalie.Saves),
-            sv: parseFloat(goalie['SV%']),
-            gsaa: parseFloat(goalie.GSAA),
-            // Calculate per-60 rate stats
-            gsaa60: exports.calc_PER60(goalie.GSAA, goalie.TOI),
-            xga: parseFloat(goalie['xG Against']),
-            hdsa: parseFloat(goalie['HD Shots Against']),
-            hdsaves: parseFloat(goalie['HD Saves']),
-            hdsv: parseFloat(goalie['HDSV%']),
-            hdgsaa: parseFloat(goalie.HDGSAA),
-            // Calculate per-60 rate stats
-            hdgsaa60: exports.calc_PER60(goalie.HDGSAA, goalie.TOI),
-            // Calculate xSV% using SV% func
-            xsv: decimalThree(exports.calc_SV(
-               (goalie['Shots Against'] - goalie['xG Against']),
-               goalie['Shots Against']
-            )),
-            // Calculate dSV% using SV% func
-            dsv: exports.calc_DSV(
-               goalie['SV%'],
-               exports.calc_SV(
-                  (goalie['Shots Against'] - goalie['xG Against']),
-                  goalie['Shots Against']
-               )
-            )
-         })
-
-         return goalie
-      });
-
-      // FUTURE: go through goalieData, combine team stats
+		// Pull stats needed, get ID, store as array
+      const goalieData = getGoalieData(jsonObj);
       
-      // Map goalieData to create an array of goalie stats objects
-      const newData = goalieData.map(({name, team, ...stats}) => (
-         {
-            id: goalie_id.returnID(name),
-            name: name,
-            team: team,
-            // Calculate percentiles for each stat
-            percentile: {
-               gp: percentile(stats.gp, gpArray),
-               toi: percentile(stats.toi, toiArray),
-               sa: percentile(stats.sa, saArray),
-               saves: percentile(stats.saves, savesArray),
-               sv: percentile(stats.sv, svArray),
-               gsaa: percentile(stats.gsaa, gsaaArray),
-               gsaa60: percentile(stats.gsaa60, gsaa60Array),
-               xga: percentile(stats.xga, xgaArray),
-               hdsa: percentile(stats.hdsa, hdsaArray),
-               hdsaves: percentile(stats.hdsaves, hdsavesArray),
-               hdsv: percentile(stats.hdsv, hdsvArray),
-               hdgsaa: percentile(stats.hdgsaa, hdgsaaArray),
-               hdgsaa60: percentile(stats.hdgsaa60, hdgsaa60Array),
-               xsv: percentile(stats.xsv, xsvArray),
-               dsv: percentile(stats.dsv, dsvArray),
-               },
-            // Calculate rankings for each stat
-            rank: {
-               gp: rank(stats.gp, gpArray),
-               toi: rank(stats.toi, toiArray),
-               sa: rank(stats.sa, saArray),
-               saves: rank(stats.saves, savesArray),
-               sv: rank(stats.sv, svArray),
-               gsaa: rank(stats.gsaa, gsaaArray),
-               gsaa60: rank(stats.gsaa60, gsaa60Array),
-               xga: rank(stats.xga, xgaArray),
-               hdsa: rank(stats.hdsa, hdsaArray),
-               hdsaves: rank(stats.hdsaves, hdsavesArray),
-               hdsv: rank(stats.hdsv, hdsvArray),
-               hdgsaa: rank(stats.hdgsaa, hdgsaaArray),
-               hdgsaa60: rank(stats.hdgsaa60, hdgsaa60Array),
-               xsv: rank(stats.xsv, xsvArray),
-               dsv: rank(stats.dsv, dsvArray),
-            },
-            // Add stats obj
-            stats: {
-               ...stats
-            }
-         }
-      ));
+      // Go through array, combine team stats into new array
+      const combinedData = combineGoalies(goalieData);
+      
+      // Go through array, Calculate SV%, per-60 stats
+      const statsData = statCalculations(combinedData);
+      
+      // FUTURE: Compile multiple year stats
+      
+      // Go through array, calculate percentile and rank values
+      const newData = exports.calcRankPercentile(statsData)
 
-      fs.writeFile('../../data/JSON/5v5/stats_2018_5v5-combined.json', JSON.stringify(newData, null, 2), err => {
+      fs.writeFile('../../data/JSON/PK/stats_2018_PK.json', JSON.stringify(newData, null, 2), err => {
          if (err) throw err;
          console.log(err);
       });
