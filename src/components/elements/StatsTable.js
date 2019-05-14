@@ -6,10 +6,12 @@ const GoalieTable = styled.table`
 	text-align: left;
 	border-collapse: collapse;
 	overflow-x:auto;
+	margin-bottom: 1rem;
+	font-family: 'Roboto Mono';
 
 	& th {
 		color: #0066E5;
-		font-weight: 400;
+		font-weight: 700;
 	}
 
 	& tbody tr:hover {
@@ -20,8 +22,9 @@ const GoalieTable = styled.table`
 		padding-left: .5rem;
 	}
 
+	& th:nth-child(2),
 	& th:nth-child(3),
-	& td:nth-child(3) {
+	& td {
 		text-align: right;
 		padding-right: .5rem;
 	}
@@ -63,13 +66,14 @@ const StatsTable = ({goalie, rankTotal}) => {
 					<td>{stats.sa}</td>
 					<td>{rank.sa}</td>
 				</tr>
+				<tr></tr>
 				<tr>
 					<th>SHOTS/60</th>
 					<td>{(stats.sa / stats.toi * 60).toFixed(3)}</td>
 					<td>{rank.sa}</td>
 				</tr>
 				<TableRowSpace>
-					<th>&#x2004;&#x2004;SV%</th>
+					<th>&#xA0;SV%</th>
 					<td>{stats.sv.toFixed(3)}</td>
 					<td>{rank.sv}</td>
 				</TableRowSpace>
