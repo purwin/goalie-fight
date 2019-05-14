@@ -9,13 +9,12 @@ import Box from './elements/Box'
 
 const ViewBox = styled(Box)`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   grid-gap: 1rem;
   background: none;
   color: #4C9CFF;
   height: 100%;
   align-content: start;
-  overflow-y: visible;
 `;
 
 const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, setActiveGoalie, addGoalie, pullGoalie, setSituation, resetState, colors, ...props}) => {
