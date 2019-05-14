@@ -194,6 +194,28 @@ const statCalculations = arr => (
 );
 
 
+const getGoalieData = obj => (
+	obj.map(goalie => (
+		// Return goalie object
+		{
+			// Pull ID value from goalie_id.json
+			id: goalie_id.returnID(goalie.Player),
+			name: goalie.Player,
+			team: goalie.Team.toUpperCase().replace(/[^A-Z]/, ''),
+			gp: parseFloat(goalie['GP']),
+			toi: parseFloat(goalie['TOI']),
+			sa: parseFloat(goalie['Shots Against']),
+			saves: parseFloat(goalie['Saves']),
+			gsaa: parseFloat(goalie['GSAA']),
+			xga: parseFloat(goalie['xG Against']),
+			hdsa: parseFloat(goalie['HD Shots Against']),
+			hdsaves: parseFloat(goalie['HD Saves']),
+			hdgsaa: parseFloat(goalie['HDGSAA']),
+		}
+	))
+);
+
+
 // Read CSV file, then generate an array of goalie stat data and write to JSON
 csv()
 	.fromFile(csvFilePath)
