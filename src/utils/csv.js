@@ -5,14 +5,13 @@ const goalie_id = require('./goalie_id')
 
 
 // File path of CSV file to read
-const csvFilePath = '../../data/CSV/4v5/stats_2018_4v5.csv'
+const csvFilePath = '../../data/CSV/5v5/stats_2018_5v5.csv'
 
 
 // Function that calculates save percentage
 // Receives 2 arguments: saves and shots (numbers as string or int)
 // Returns a decimal int
-exports.calc_SV = (saves, shots) => parseFloat(saves) / parseFloat(shots);
-
+exports.calc_SV = (saves, shots) => decimalThree(parseFloat(saves) / parseFloat(shots));
 
 // Function that calculates dSV% (SV% - xSV%)
 // Receives 2 arguments: SV% and xSV% (numbers as string or int)
@@ -194,6 +193,8 @@ csv()
 
          return goalie
       });
+
+      // FUTURE: go through goalieData, combine team stats
       
       // Map goalieData to create an array of goalie stats objects
       const newData = goalieData.map(({name, team, ...stats}) => (
@@ -244,7 +245,7 @@ csv()
          }
       ));
 
-      fs.writeFile('../../data/JSON/4v5/stats_2018_4v5.json', JSON.stringify(newData, null, 2), err => {
+      fs.writeFile('../../data/JSON/5v5/stats_2018_5v5-combined.json', JSON.stringify(newData, null, 2), err => {
          if (err) throw err;
          console.log(err);
       });
