@@ -170,6 +170,30 @@ const combineGoalies = arr => {
 };
 
 
+// Function that calculates SV%, per-60 stats in given array arg
+// Takes an array of goalie objects
+// Returns an array with additional keys
+const statCalculations = arr => (
+   arr.map(goalie => (
+      {
+         sv: exports.calc_SV(goalie.saves, goalie.sa),
+         hdsv: exports.calc_SV(goalie.hdsaves, goalie.hdsa),
+         xsv: exports.calc_SV((goalie.sa - goalie.xga), goalie.sa),
+         dsv: exports.calc_DSV(
+               exports.calc_SV(goalie.saves, goalie.sa),
+               exports.calc_SV(
+                  (goalie.sa - goalie.xga),
+                  goalie.sa
+               )
+         ),
+         gsaa60: exports.calc_PER60(goalie.gsaa, goalie.toi),
+         hdgsaa60: exports.calc_PER60(goalie.hdgsaa, goalie.toi),
+         ...goalie
+      }
+   ))
+);
+
+
 // Read CSV file, then generate an array of goalie stat data and write to JSON
 csv()
 	.fromFile(csvFilePath)
