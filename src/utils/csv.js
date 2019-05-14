@@ -106,6 +106,70 @@ exports.calcRankPercentile = arr => {
 };
 
 
+// Function to combine stats for goalies on multiple teams
+// and add an 'ALL' goalie option to the goalieList
+const combineGoalies = arr => {
+   let tempArr = [];
+   let duplicates = [];
+
+   // Loop through array, store duplicate goalie IDs
+   arr.forEach(goalie => {
+      // Loop over array
+      if (tempArr.includes(goalie.id) && !duplicates.includes(goalie.id)) {
+         // Store duplicate IDs
+         duplicates.push(goalie.id)
+      }
+
+      tempArr.push(goalie.id)
+   })
+
+   // Loop over stats, combine for duplicates, create an ALL object
+   const newObj = duplicates.reduce((total, line) => {
+
+      let allGoalie = {
+         id: line,
+         team: 'ALL',
+         gp: 0,
+         toi: 0,
+         sa: 0,
+         saves: 0,
+         gsaa: 0,
+         xga: 0,
+         hdsa: 0,
+         hdsaves: 0,
+         hdgsaa: 0,
+      };
+
+      // Loop over stats, combine if ID === goalie.id
+      arr.forEach(goalie => {
+         if (goalie.id === line) {
+            // Set name to goalie name
+            allGoalie['name'] = goalie.name
+            // Combine stats
+            allGoalie['gp'] += goalie['gp']
+            allGoalie['toi'] += goalie['toi']
+            allGoalie['sa'] += goalie['sa']
+            allGoalie['saves'] += goalie['saves']
+            allGoalie['gsaa'] += goalie['gsaa']
+            allGoalie['xga'] += goalie['xga']
+            allGoalie['hdsa'] += goalie['hdsa']
+            allGoalie['hdsaves'] += goalie['hdsaves']
+            allGoalie['hdgsaa'] += goalie['hdgsaa']
+         }
+
+      })
+
+      // Add line to new goalies array
+      total.push(allGoalie)
+
+      return total
+   }, [])
+
+   // Return concatenated argument and new array
+   return arr.concat(newObj)
+};
+
+
 // Read CSV file, then generate an array of goalie stat data and write to JSON
 csv()
 	.fromFile(csvFilePath)
