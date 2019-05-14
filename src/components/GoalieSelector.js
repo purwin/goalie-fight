@@ -42,13 +42,13 @@ const SelectorAdd = styled(Selector)`
 	}
 
 	:disabled {
-		background: tomato;
+		background: #F47560;
 		font-size: 0;
 		cursor: not-allowed;
 	}
 
 	:disabled:active {
-		background: tomato;
+		background: #F47560;
 		margin: 0 0 2.5px;
 	}
 `;
