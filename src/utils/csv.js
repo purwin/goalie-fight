@@ -63,22 +63,19 @@ const decimalThree = num => Number(num.toFixed(3));
 // Function that calculates percentile and rank values for items in array of objects
 exports.calcRankPercentile = arr => {
 
-	// Create arrays of each stat category to generate rank and percentiles for each goalie stat
-	const compiledArrays = arr.reduce((total, goalie) => {
-		total.goalieData = total.goalieData || []
-
-		Object.keys(goalie).forEach(key => {
+	// Create an object of arrays of each stat category to generate rank and percentiles for each goalie stat
+	const compiledArrays = arr.reduce((total, {id, name, team, ...stats}) => {
+      // Loop through stats, add to each key array
+		Object.keys(stats).forEach(key => {
 			total[key] = total[key] || []
-			total[key].push(goalie[key])
+			total[key].push(stats[key])
 		});
-
-		total.goalieData.push(goalie)
-
+      
 		return total
 	}, {});
 
-	// Loop through goalieData array, compile stats and percentiles
-	const output = compiledArrays.goalieData.reduce((total, goalie)=> {
+	// Loop through argument array, compile stats and percentiles
+	const output = arr.reduce((total, goalie)=> {
 		const {name, team, id, ...stats} = goalie;
 
 		let tempObj = {
@@ -90,17 +87,22 @@ exports.calcRankPercentile = arr => {
 			stats: {},
 		};
 
-		stats.forEach(stat => {
-			tempObj.percentile[stat] = percentile(goalie[stat], compiledArrays[stat])
-			tempObj.rank[stat] = rank(goalie[stat], compiledArrays[stat])
+      // Loop through each stat, populate new keys 
+		Object.keys(stats).forEach(stat => {
+         // Calculate percentile for each stat
+         tempObj.percentile[stat] = percentile(goalie[stat], compiledArrays[stat])
+         // Calculate rank for each stat
+         tempObj.rank[stat] = rank(goalie[stat], compiledArrays[stat])
+         // Add each stat to stats obj
 			tempObj.stats[stat] = goalie[stat]
 		});
 
-		return total.push(tempObj)
+		total.push(tempObj)
+
+		return total
 	}, []);
 
 	return output
-
 };
 
 
