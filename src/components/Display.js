@@ -62,7 +62,7 @@ Display.propTypes = {
   changeGoalie: PropTypes.func,
   addGoalie: PropTypes.func,
   pullGoalie: PropTypes.func,
-  activeGoalie: PropTypes.string,
+  activeGoalie: PropTypes.number,
   setActiveGoalie: PropTypes.func,
   setSituation: PropTypes.func,
   resetState: PropTypes.func,
