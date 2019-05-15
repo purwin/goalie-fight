@@ -56,10 +56,10 @@ const SelectorAdd = styled(Selector)`
 const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, setActiveGoalie, addGoalie, pullGoalie, color}) => {
 	// Local onChange func to pass GoalieSelector, new goalie values to state
 	const onChangeGoalie = newGoalie => {
-		// Send selected option values to state
+		// Send selected option index value to state
 		changeGoalie(index, newGoalie)
 		// Set new state.activeGoalie
-		setActiveGoalie(newGoalie)
+		setActiveGoalie(index)
 	}
 
 	// Pass color props to selected option
