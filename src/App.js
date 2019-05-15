@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import * as firebase from 'firebase'
+import WebFont from 'webfontloader';
 
 import Header from './components/Header'
 import Display from './components/Display'
@@ -11,6 +12,12 @@ import './App.css'
 
 library.add(faPlus) // + SVG icon
 library.add(faTimes) // X SVG icon
+
+WebFont.load({
+  google: {
+    families: ['Noto Sans', 'Roboto Mono']
+  }
+});
 
 const database = firebase.database();
 
