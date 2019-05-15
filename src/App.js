@@ -60,6 +60,7 @@ class App extends Component {
     this.resetState = this.resetState.bind(this);
   }
 
+
     // Add goalie to this.state.goalies
     addGoalie = (goalie = {}) => {
       this.setState(prevState => {
@@ -69,6 +70,7 @@ class App extends Component {
         }
       })
     };
+
 
     // Remove goalie from this.state.goalies
     pullGoalie = index => {
@@ -88,11 +90,10 @@ class App extends Component {
       })
     };
 
+
     // Set goalie to a new obj value
     changeGoalie = (index, newGoalie) => {
       this.getStatDB(newGoalie).then(data => {
-        console.log(data);
-
         this.setState(prevState => {
           return {
             goalies: prevState.goalies.map((goalie, i) => (
@@ -107,6 +108,7 @@ class App extends Component {
       });
 
     };
+
 
     // Function to set state.situation and update data to reflect new value
     setSituation = val => {
@@ -129,12 +131,7 @@ class App extends Component {
 
     // Function to set state.activeGoalie
     // Called when new goalie is added to the chart or selected from Stats component
-    setActiveGoalie = ({id, team}) => {
-      // Set unique value
-      const val = `${id}_${team}`;
-
-      console.log(`Active goalie: ${val}`);
-
+    setActiveGoalie = val => {
       // If goalie is not currently active, set state
       if (val !== this.state.activeGoalie) {
         this.setState({
@@ -143,15 +140,12 @@ class App extends Component {
       }
     };
 
+
     // Function that sends a request for goalie data from Firebase
     // Returns a promise with goalie data as an obj
     getStatDB = goalie => {
       return new Promise((resolve, reject) => {
         const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
-        console.log(id);
-
-        console.log(this.state.time);
-        console.log(this.state.situation);
 
         database.ref(`${this.state.time}/${this.state.situation}/goalies/${id}`)
           .once('value')
@@ -165,22 +159,19 @@ class App extends Component {
 
     };
 
+
     // Function that pulls goalie options from database
     getGoalieOptions = () => {
       let stateGoalieList = [];
-      
+
       database.ref(`${this.state.time}/options`)
+        .orderByChild('name')
         .once('value')
         .then(snapshot => {
           snapshot.forEach(item => {
             stateGoalieList.push(item.val());
           })
-      
-          stateGoalieList.sort((a, b) => (
-            a.name > b.name ? 1 :
-            (a.name < b.name ? -1 : 0)
-          ))
-      
+            
           this.setState({
             goalieList: stateGoalieList
           });
@@ -188,6 +179,7 @@ class App extends Component {
           console.log(`Error: ${e}`);
         });
     };
+
 
     // Function to reset all state data
     resetState = () => {
