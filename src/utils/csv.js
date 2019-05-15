@@ -1,3 +1,6 @@
+// Get start time of script run
+const start = process.hrtime();
+
 const csv = require('csvtojson')
 const fs = require('fs')
 
@@ -49,9 +52,9 @@ const percentile = (num, arr) => {
 // Receives a number and an array as arguments
 // Returns number
 const rank = (num, arr) => (
-   // If num is null/NaN, return null
-   // Otherwise return sorted index val
-   Number.isNaN(Number(num)) ? null : arr.sort((a, b) => b - a).indexOf(num) + 1
+	// If num is null/NaN, return null
+	// Otherwise return sorted index val
+	Number.isNaN(Number(num)) ? null : arr.sort((a, b) => b - a).indexOf(num) + 1
 );
 
 
@@ -65,12 +68,12 @@ exports.calcRankPercentile = arr => {
 
 	// Create an object of arrays of each stat category to generate rank and percentiles for each goalie stat
 	const compiledArrays = arr.reduce((total, {id, name, team, ...stats}) => {
-      // Loop through stats, add to each key array
+		// Loop through stats, add to each key array
 		Object.keys(stats).forEach(key => {
 			total[key] = total[key] || []
 			total[key].push(stats[key])
 		});
-      
+		
 		return total
 	}, {});
 
@@ -87,13 +90,13 @@ exports.calcRankPercentile = arr => {
 			stats: {},
 		};
 
-      // Loop through each stat, populate new keys 
+		// Loop through each stat, populate new keys 
 		Object.keys(stats).forEach(stat => {
-         // Calculate percentile for each stat
-         tempObj.percentile[stat] = percentile(goalie[stat], compiledArrays[stat])
-         // Calculate rank for each stat
-         tempObj.rank[stat] = rank(goalie[stat], compiledArrays[stat])
-         // Add each stat to stats obj
+			// Calculate percentile for each stat
+			tempObj.percentile[stat] = percentile(goalie[stat], compiledArrays[stat])
+			// Calculate rank for each stat
+			tempObj.rank[stat] = rank(goalie[stat], compiledArrays[stat])
+			// Add each stat to stats obj
 			tempObj.stats[stat] = goalie[stat]
 		});
 
@@ -109,64 +112,64 @@ exports.calcRankPercentile = arr => {
 // Function to combine stats for goalies on multiple teams
 // and add an 'ALL' goalie option to the goalieList
 const combineGoalies = arr => {
-   let tempArr = [];
-   let duplicates = [];
+	let tempArr = [];
+	let duplicates = [];
 
-   // Loop through array, store duplicate goalie IDs
-   arr.forEach(goalie => {
-      // Loop over array
-      if (tempArr.includes(goalie.id) && !duplicates.includes(goalie.id)) {
-         // Store duplicate IDs
-         duplicates.push(goalie.id)
-      }
+	// Loop through array, store duplicate goalie IDs
+	arr.forEach(goalie => {
+		// Loop over array
+		if (tempArr.includes(goalie.id) && !duplicates.includes(goalie.id)) {
+			// Store duplicate IDs
+			duplicates.push(goalie.id)
+		}
 
-      tempArr.push(goalie.id)
-   })
+		tempArr.push(goalie.id)
+	})
 
-   // Loop over stats, combine for duplicates, create an ALL object
-   const newObj = duplicates.reduce((total, line) => {
+	// Loop over stats, combine for duplicates, create an ALL object
+	const newObj = duplicates.reduce((total, line) => {
 
-      let allGoalie = {
-         id: line,
-         team: 'ALL',
-         gp: 0,
-         toi: 0,
-         sa: 0,
-         saves: 0,
-         gsaa: 0,
-         xga: 0,
-         hdsa: 0,
-         hdsaves: 0,
-         hdgsaa: 0,
-      };
+		let allGoalie = {
+			id: line,
+			team: 'ALL',
+			gp: 0,
+			toi: 0,
+			sa: 0,
+			saves: 0,
+			gsaa: 0,
+			xga: 0,
+			hdsa: 0,
+			hdsaves: 0,
+			hdgsaa: 0,
+		};
 
-      // Loop over stats, combine if ID === goalie.id
-      arr.forEach(goalie => {
-         if (goalie.id === line) {
-            // Set name to goalie name
-            allGoalie['name'] = goalie.name
-            // Combine stats
-            allGoalie['gp'] += goalie['gp']
-            allGoalie['toi'] += goalie['toi']
-            allGoalie['sa'] += goalie['sa']
-            allGoalie['saves'] += goalie['saves']
-            allGoalie['gsaa'] += goalie['gsaa']
-            allGoalie['xga'] += goalie['xga']
-            allGoalie['hdsa'] += goalie['hdsa']
-            allGoalie['hdsaves'] += goalie['hdsaves']
-            allGoalie['hdgsaa'] += goalie['hdgsaa']
-         }
+		// Loop over stats, combine if ID === goalie.id
+		arr.forEach(goalie => {
+			if (goalie.id === line) {
+				// Set name to goalie name
+				allGoalie['name'] = goalie.name
+				// Combine stats
+				allGoalie['gp'] += goalie['gp']
+				allGoalie['toi'] += goalie['toi']
+				allGoalie['sa'] += goalie['sa']
+				allGoalie['saves'] += goalie['saves']
+				allGoalie['gsaa'] += goalie['gsaa']
+				allGoalie['xga'] += goalie['xga']
+				allGoalie['hdsa'] += goalie['hdsa']
+				allGoalie['hdsaves'] += goalie['hdsaves']
+				allGoalie['hdgsaa'] += goalie['hdgsaa']
+			}
 
-      })
+		})
 
-      // Add line to new goalies array
-      total.push(allGoalie)
+		// Add line to new goalies array
+		total.push(allGoalie)
 
-      return total
-   }, [])
+		return total
+	}, [])
 
-   // Return concatenated argument and new array
-   return arr.concat(newObj)
+	// Return concatenated argument and new array
+	return arr.concat(newObj)
 };
 
 
@@ -174,23 +177,23 @@ const combineGoalies = arr => {
 // Takes an array of goalie objects
 // Returns an array with additional keys
 const statCalculations = arr => (
-   arr.map(goalie => (
-      {
-         sv: exports.calc_SV(goalie.saves, goalie.sa),
-         hdsv: exports.calc_SV(goalie.hdsaves, goalie.hdsa),
-         xsv: exports.calc_SV((goalie.sa - goalie.xga), goalie.sa),
-         dsv: exports.calc_DSV(
-            exports.calc_SV(goalie.saves, goalie.sa),
-            exports.calc_SV(
-               (goalie.sa - goalie.xga),
-               goalie.sa
-            )
-         ),
-         gsaa60: exports.calc_PER60(goalie.gsaa, goalie.toi),
-         hdgsaa60: exports.calc_PER60(goalie.hdgsaa, goalie.toi),
-         ...goalie
-      }
-   ))
+	arr.map(goalie => (
+		{
+			sv: exports.calc_SV(goalie.saves, goalie.sa),
+			hdsv: exports.calc_SV(goalie.hdsaves, goalie.hdsa),
+			xsv: exports.calc_SV((goalie.sa - goalie.xga), goalie.sa),
+			dsv: exports.calc_DSV(
+				exports.calc_SV(goalie.saves, goalie.sa),
+				exports.calc_SV(
+					(goalie.sa - goalie.xga),
+					goalie.sa
+				)
+			),
+			gsaa60: exports.calc_PER60(goalie.gsaa, goalie.toi),
+			hdgsaa60: exports.calc_PER60(goalie.hdgsaa, goalie.toi),
+			...goalie
+		}
+	))
 );
 
 
@@ -221,22 +224,26 @@ csv()
 	.fromFile(csvFilePath)
 	.then(jsonObj => {
 		// Pull stats needed, get ID, store as array
-      const goalieData = getGoalieData(jsonObj);
-      
-      // Go through array, combine team stats into new array
-      const combinedData = combineGoalies(goalieData);
-      
-      // Go through array, Calculate SV%, per-60 stats
-      const statsData = statCalculations(combinedData);
-      
-      // FUTURE: Compile multiple year stats
-      
-      // Go through array, calculate percentile and rank values
-      const newData = exports.calcRankPercentile(statsData)
+		const goalieData = getGoalieData(jsonObj);
 
-      fs.writeFile('../../data/JSON/PK/stats_2018_PK.json', JSON.stringify(newData, null, 2), err => {
-         if (err) throw err;
-         console.log(err);
-      });
+		// Go through array, combine team stats into new array
+		const combinedData = combineGoalies(goalieData);
+
+		// Go through array, Calculate SV%, per-60 stats
+		const statsData = statCalculations(combinedData);
+
+		// FUTURE: Compile multiple year stats
+
+		// Go through array, calculate percentile and rank values
+		const newData = exports.calcRankPercentile(statsData)
+
+		fs.writeFile('../../data/JSON/PK/stats_2018_PK.json', JSON.stringify(newData, null, 2), err => {
+			if (err) throw err;
+			console.log(err);
+		});
 
 	})
+
+// Get end time of script run
+const end = process.hrtime(start);
+console.log(`This awesome process took ${(end[0] * 1e9 + end[1]) * 1e-6} ms`);
