@@ -12,6 +12,10 @@ const MainContainer = styled.div`
   padding: 2rem;
   background: #B3D5FF;
   overflow-y: auto;
+
+  @media screen and (max-width: 767.98px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Display = ({stats, goalies, activeGoalie, setActiveGoalie, goalieList, time, situation, changeGoalie, addGoalie, pullGoalie, setSituation, resetState, ...props}) => {
