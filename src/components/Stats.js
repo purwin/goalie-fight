@@ -28,8 +28,8 @@ const BoxBody = styled.div`
 
 const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...props}) => {
     // Function that sets state.activeGoalie
-    const onSelectGoalie = goalie => {
-    setActiveGoalie(goalie)
+    const onSelectGoalie = index => {
+    setActiveGoalie(index)
   }
 
   return(
@@ -41,13 +41,13 @@ const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...prop
             <GoalieStat key={i}>
               <GoalieName
                 color={colors[i % colors.length]}
-                onClick={() => onSelectGoalie(goalie)}
+                onClick={() => onSelectGoalie(i)}
               >
                 {goalie.name} ({goalie.team})
               </GoalieName>
               <AnimateHeight
                 duration={300}
-                height={`${goalie.id}_${goalie.team}` === activeGoalie ? 'auto' : 0 }
+                height={i === activeGoalie ? 'auto' : 0 }
               >
                 <StatsTable
                   goalie={goalie}
