@@ -7,11 +7,12 @@ import GoalieView from './GoalieView'
 
 const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 500px));
   grid-gap: 2rem;
   padding: 2rem;
   background: #B3D5FF;
   overflow-y: auto;
+  justify-content: space-evenly;
 
   @media screen and (max-width: 767.98px) {
     grid-template-columns: 1fr;
