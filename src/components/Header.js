@@ -1,5 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import styled from 'styled-components'
+
+import GoalieModal from './elements/GoalieModal'
 
 const HeaderBar = styled.div`
   display: flex;
@@ -26,14 +28,58 @@ const Nav = styled.ul`
   }
 `;
 
-const Header = () => (
-  <HeaderBar>
-    <h1>Goalie Fight!</h1>
-    <Nav>
-      <li>ABOUT</li>
-      <li>GLOSSARY</li>
-    </Nav>
-  </HeaderBar>
+const AboutModal = () => (
+  <div>
+    <h3>About</h3>
+    <p>I am a Flyers fan. Goalies are my nightmares.</p>
+    <p>Goalie Fight! is a Data Visualization project pitting goalie stats head to head.</p>
+    <p>Most data is culled from the amazing Natural Stat Trick. Please check out their Patreon and give them all your money.</p>
+    <p>Have non-threatening questions or comments? Send 'em my way!</p>
+  </div>
 );
+
+const GlossaryModal = () => (
+  <div>
+    <h3>Terms</h3>
+    <table>
+    </table>
+  </div>
+);
+
+
+class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalIsOpen: false
+    };
+
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      modalIsOpen: !prevState.modalIsOpen
+    }))
+  };
+
+  render() {
+    return(
+      <HeaderBar>
+        <h1>Goalie Fight!</h1>
+        <Nav>
+          <li onClick={this.toggleModal}>ABOUT</li>
+          <li onClick={this.toggleModal}>GLOSSARY</li>
+        </Nav>
+        <GoalieModal
+          modalIsOpen={this.state.modalIsOpen}
+          toggleModal={this.toggleModal}
+          children={AboutModal}
+        />
+      </HeaderBar>
+    );
+  }
+}
 
 export default Header;
