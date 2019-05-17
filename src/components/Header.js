@@ -33,7 +33,7 @@ const AboutModal = () => (
     <h3>About</h3>
     <p>I am a Flyers fan. Goalies are my nightmares.</p>
     <p>Goalie Fight! is a Data Visualization project pitting goalie stats head to head.</p>
-    <p>Most data is culled from the amazing Natural Stat Trick. Please check out their Patreon and give them all your money.</p>
+    <p>Most data is culled from the amazing <a href="http://www.naturalstattrick.com/">Natural Stat Trick</a>. Please check out their <a href="https://www.patreon.com/naturalstattrick">Patreon</a> and give them all your money.</p>
     <p>Have non-threatening questions or comments? Send 'em my way!</p>
   </div>
 );
@@ -41,8 +41,20 @@ const AboutModal = () => (
 const GlossaryModal = () => (
   <div>
     <h3>Terms</h3>
-    <table>
-    </table>
+    <div>
+      <div>GP</div><div>Games Played</div>
+      <div>TOI</div><div></div>
+      <div>SHOTS</div><div></div>
+      <div>SHOTS/60</div><div></div>
+      <div>SV%</div><div></div>
+      <div>xSV%</div><div></div>
+      <div>dSV%</div><div></div>
+      <div>GSAA</div><div></div>
+      <div>GSAA/60</div><div></div>
+      <div>HDSV%</div><div></div>
+      <div>HDGSAA</div><div></div>
+      <div>HDGSAA/60</div><div></div>
+    </div>
   </div>
 );
 
@@ -75,8 +87,9 @@ class Header extends Component {
         <GoalieModal
           modalIsOpen={this.state.modalIsOpen}
           toggleModal={this.toggleModal}
-          children={AboutModal}
-        />
+        >
+          <AboutModal />
+        </GoalieModal>
       </HeaderBar>
     );
   }
