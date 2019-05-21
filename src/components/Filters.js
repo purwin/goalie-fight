@@ -91,7 +91,7 @@ const Filters = ({time, situation, setSituation, resetState, ...props}) => {
       
       {situationFilters.map((filter, i) => (
         <FilterButton
-          key={i}
+          key={`filter_${i}`}
           active={situation === filter}
           label={filter}
           buttonClick={e => setSituation(e.target.innerText)}
