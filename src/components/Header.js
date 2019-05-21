@@ -43,17 +43,17 @@ const GlossaryModal = () => (
     <h3>Terms</h3>
     <div>
       <div>GP</div><div>Games Played</div>
-      <div>TOI</div><div></div>
-      <div>SHOTS</div><div></div>
-      <div>SHOTS/60</div><div></div>
-      <div>SV%</div><div></div>
-      <div>xSV%</div><div></div>
-      <div>dSV%</div><div></div>
-      <div>GSAA</div><div></div>
-      <div>GSAA/60</div><div></div>
-      <div>HDSV%</div><div></div>
-      <div>HDGSAA</div><div></div>
-      <div>HDGSAA/60</div><div></div>
+      <div>TOI</div><div>Time on Ice</div>
+      <div>SHOTS</div><div>Shots Against</div>
+      <div>SHOTS/60</div><div>Shots Against Per-60 Mins</div>
+      <div>SV%</div><div>Save Percentage</div>
+      <div>xSV%</div><div>Expected Save Percentage</div>
+      <div>dSV%</div><div>Delta Save Percentage</div>
+      <div>GSAA</div><div>Goals Saved Above Average</div>
+      <div>GSAA/60</div><div>Goals Saved Above Average Per-60 Mins</div>
+      <div>HDSV%</div><div>High-Danger Save Percentage</div>
+      <div>HDGSAA</div><div>High-Danger Goals Saved Above Average </div>
+      <div>HDGSAA/60</div><div>High-Danger Goals Saved Above Average Per-60 Mins</div>
     </div>
   </div>
 );
