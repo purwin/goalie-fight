@@ -38,7 +38,7 @@ const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...prop
       {stats.map((goalie, i) => {
         if (goalie.name) {
           return(
-            <GoalieStat key={i}>
+            <GoalieStat key={`stat_${i}`}>
               <GoalieName
                 color={colors[i % colors.length]}
                 onClick={() => onSelectGoalie(i)}
@@ -49,10 +49,12 @@ const Stats = ({stats, rankTotal, activeGoalie, setActiveGoalie, colors, ...prop
                 duration={300}
                 height={i === activeGoalie ? 'auto' : 0 }
               >
-                <StatsTable
-                  goalie={goalie}
-                  rankTotal={rankTotal}
-                />
+                <div>
+                  <StatsTable
+                    goalie={goalie}
+                    rankTotal={rankTotal}
+                  />
+                </div>
               </AnimateHeight>
             </GoalieStat>
           )
