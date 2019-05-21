@@ -13,7 +13,7 @@ const GoalieSelectors = ({goalies, goalieList, changeGoalie, setActiveGoalie, ad
 	<SelectDiv>
 		{goalies.map((goalie, i) => (
 			<GoalieSelector
-				key={i}
+				key={`selector_${i}`}
 				index={i}
 				goalie={goalie}
 				goalies={goalies}
