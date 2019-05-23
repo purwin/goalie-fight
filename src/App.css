@@ -1,5 +1,28 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Roboto Mono', 'Noto Sans', sans-serif;
+}
+
 .App {
   text-align: center;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+@media screen and (min-width: 768px) {
+  .App {
+    grid-template-rows: 10vh auto;
+    max-height: 100vh;
+    overflow: auto;
+  }
 }
 
 .App-logo {
@@ -37,22 +60,15 @@ img {
 }
 
 
-
-.box {
-  width: 30%;
-  margin: auto;
-  background: #021926;
-  color: #dfe6e9;
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
 }
 
-  .box-head {
+.ReactModal__Overlay--after-open{
+  opacity: 1;
+}
 
-  }
-
-  .box-body {
-    
-  }
-
-  .chart {
-    height: 50vh;
-  }
+.ReactModal__Overlay--before-close{
+  opacity: 0;
+}
