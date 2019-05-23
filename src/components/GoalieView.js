@@ -15,6 +15,9 @@ const ViewBox = styled(Box)`
   color: #4C9CFF;
   height: 100%;
   align-content: start;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const GoalieView = ({stats, goalies, goalieList, time, situation, changeGoalie, setActiveGoalie, addGoalie, pullGoalie, setSituation, resetState, colors, ...props}) => {
