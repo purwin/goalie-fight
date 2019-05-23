@@ -29,7 +29,6 @@ const GoalieModal = ({children, title, modalIsOpen, toggleModal, ...props}) => (
 		contentLabel={title}
 		closeTimeoutMS={200}
 	>
-		<button onClick={toggleModal}>X</button>
 		{children}
 	</Modal>
 );
