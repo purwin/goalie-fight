@@ -20,7 +20,6 @@ const Head = styled.div`
   color: #dfe6e9;
   margin: 0;
   padding: 1rem;
-  border-bottom: 2px solid #021926;
 `;
 
 const HeadTitle = styled.h3`
@@ -35,7 +34,7 @@ const HeadTitle = styled.h3`
   &:after {
     display: block;
     content: "";
-    height: 8px;
+    height: 12px;
     border-top: 3px solid #dfe6e9;
     border-bottom: 3px solid #dfe6e9;
   }
