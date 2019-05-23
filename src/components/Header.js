@@ -11,6 +11,11 @@ const HeaderBar = styled.div`
   background: #001F4D;
   color: #E5F1FF;
   padding: 1rem;
+  width: 100%;
+
+  @media screen and (max-width: 767.98px) {
+    flex-direction: column;
+  }
 `;
 
 const Nav = styled.ul`
@@ -18,23 +23,24 @@ const Nav = styled.ul`
   flex-direction: row;
   list-style-type: none;
   margin: 0;
+  padding: 0;
 
   & li {
     padding: 0 1.5rem;
   }
 
   & li:hover {
-    color: tomato;
+    color: #B3D5FF;
   }
 `;
 
 const AboutModal = () => (
   <div>
-    <h3>About</h3>
+    <h3>About Goalie Fight!</h3>
     <p>I am a Flyers fan. Goalies are my nightmares.</p>
     <p>Goalie Fight! is a Data Visualization project pitting goalie stats head to head.</p>
     <p>Most data is culled from the amazing <a href="http://www.naturalstattrick.com/">Natural Stat Trick</a>. Please check out their <a href="https://www.patreon.com/naturalstattrick">Patreon</a> and give them all your money.</p>
-    <p>Have non-threatening questions or comments? Send 'em my way!</p>
+    <p>Have non-threatening questions or comments? Send ’em my way!</p>
   </div>
 );
 
