@@ -114,12 +114,14 @@ const Chart = ({stats}) => {
         animate={true}
         motionStiffness={120}
         motionDamping={15}
-        isInteractive={false}
-        tooltip={({ id, value, color }) => (
+        isInteractive={!!stats[0].name}
+        tooltip={({ id, value, color, ...args}) => {
+          console.log(args);
+          return (
           <strong style={{ color }}>
             {id}: {value}
           </strong>
-        )}
+        )}}
         theme={{
           tooltip: {
             container: {
