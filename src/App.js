@@ -61,142 +61,142 @@ class App extends Component {
   }
 
 
-    // Add goalie to this.state.goalies
-    addGoalie = (goalie = {}) => {
-      this.setState(prevState => {
-        return {
-          goalies: prevState.goalies.concat(goalie),
-          stats: prevState.stats.concat(goalie),
-        }
-      })
-    };
-
-
-    // Remove goalie from this.state.goalies
-    pullGoalie = index => {
-      this.setState(prevState => {
-        // Filter pulled goalie out of goalie list
-        const newGoalies = prevState.goalies.filter((goalie, i) => index !== i);
-
-        // Define goalie ID to compare against activeGoalie
-        const pulledGoalieID = `${prevState.goalies[index].id}_${prevState.goalies[index].team}`;
-
-        return {
-          goalies: newGoalies,
-          stats: prevState.stats.filter((stat, i) => index !== i),
-          // If activeGoalie is removed, set to last goalie in array
-          activeGoalie: prevState.activeGoalie === pulledGoalieID ? `${newGoalies[newGoalies.length - 1].id}_${newGoalies[newGoalies.length - 1].team}` : prevState.activeGoalie
-        }
-      })
-    };
-
-
-    // Set goalie to a new obj value
-    changeGoalie = (index, newGoalie) => {
-      this.getStatDB(newGoalie).then(data => {
-        this.setState(prevState => {
-          return {
-            goalies: prevState.goalies.map((goalie, i) => (
-              (index === i) ? newGoalie : goalie
-            )),
-            stats: prevState.stats.map((stat, i) => (
-              (index === i) ? data : stat
-            ))
-          }
-        })
-
-      });
-
-    };
-
-
-    // Function to set state.situation and update data to reflect new value
-    setSituation = val => {
-      // Do nothing if selected situation is already set
-      if (this.state.situation === val) {
-        return
+  // Add goalie to this.state.goalies
+  addGoalie = (goalie = {}) => {
+    this.setState(prevState => {
+      return {
+        goalies: prevState.goalies.concat(goalie),
+        stats: prevState.stats.concat(goalie),
       }
-      // Set state.situation w/ passed arg
+    })
+  };
+
+
+  // Remove goalie from this.state.goalies
+  pullGoalie = index => {
+    this.setState(prevState => {
+      // Filter pulled goalie out of goalie list
+      const newGoalies = prevState.goalies.filter((goalie, i) => index !== i);
+
+      // Define goalie ID to compare against activeGoalie
+      const pulledGoalieID = `${prevState.goalies[index].id}_${prevState.goalies[index].team}`;
+
+      return {
+        goalies: newGoalies,
+        stats: prevState.stats.filter((stat, i) => index !== i),
+        // If activeGoalie is removed, set to last goalie in array
+        activeGoalie: prevState.activeGoalie === index ? newGoalies.length - 1 : prevState.activeGoalie
+      }
+    })
+  };
+
+
+  // Set goalie to a new obj value
+  changeGoalie = (index, newGoalie) => {
+    this.getStatDB(newGoalie).then(data => {
+      this.setState(prevState => {
+        return {
+          goalies: prevState.goalies.map((goalie, i) => (
+            (index === i) ? newGoalie : goalie
+          )),
+          stats: prevState.stats.map((stat, i) => (
+            (index === i) ? data : stat
+          ))
+        }
+      })
+
+    });
+
+  };
+
+
+  // Function to set state.situation and update data to reflect new value
+  setSituation = val => {
+    // Do nothing if selected situation is already set
+    if (this.state.situation === val) {
+      return
+    }
+    // Set state.situation w/ passed arg
+    this.setState({
+      situation: val
+    }, () => {
+      this.state.goalies.forEach((goalie, i) => {
+        // Call changeGoalie if goalie has defined properties to get new data
+        goalie.name && this.changeGoalie(i, goalie);
+      });
+    })
+
+  };
+
+
+  // Function to set state.activeGoalie
+  // Called when new goalie is added to the chart or selected from Stats component
+  setActiveGoalie = val => {
+    // If goalie is not currently active, set state
+    if (val !== this.state.activeGoalie) {
       this.setState({
-        situation: val
-      }, () => {
-        this.state.goalies.forEach((goalie, i) => {
-          // Call changeGoalie if goalie has defined properties to get new data
-          goalie.name && this.changeGoalie(i, goalie);
-        });
-      })
-
-    };
-
-
-    // Function to set state.activeGoalie
-    // Called when new goalie is added to the chart or selected from Stats component
-    setActiveGoalie = val => {
-      // If goalie is not currently active, set state
-      if (val !== this.state.activeGoalie) {
-        this.setState({
-          activeGoalie: val
-        });
-      }
-    };
-
-
-    // Function that sends a request for goalie data from Firebase
-    // Returns a promise with goalie data as an obj
-    getStatDB = goalie => {
-      return new Promise((resolve, reject) => {
-        const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
-
-        database.ref(`${this.state.time}/${this.state.situation}/goalies/${id}`)
-          .once('value')
-          .then(snapshot => {
-            resolve(snapshot.val());
-          }).catch(e => {
-            reject(`Error: ${e}`);
-          });
-
+        activeGoalie: val
       });
+    }
+  };
 
-    };
 
+  // Function that sends a request for goalie data from Firebase
+  // Returns a promise with goalie data as an obj
+  getStatDB = goalie => {
+    return new Promise((resolve, reject) => {
+      const id = `${goalie.id}_${goalie.team.toLowerCase()}`;
 
-    // Function that pulls goalie options from database
-    getGoalieOptions = () => {
-      let stateGoalieList = [];
-
-      database.ref(`${this.state.time}/options`)
-        .orderByChild('name')
+      database.ref(`${this.state.time}/${this.state.situation}/goalies/${id}`)
         .once('value')
         .then(snapshot => {
-          snapshot.forEach(item => {
-            stateGoalieList.push(item.val());
-          })
-            
-          this.setState({
-            goalieList: stateGoalieList
-          });
+          resolve(snapshot.val());
         }).catch(e => {
-          console.log(`Error: ${e}`);
+          reject(`Error: ${e}`);
         });
-    };
+
+    });
+
+  };
 
 
-    // Function to reset all state data
-    resetState = () => {
-      // Set default state
-      this.setState({
-        ...defaultState
-      })
+  // Function that pulls goalie options from database
+  getGoalieOptions = () => {
+    let stateGoalieList = [];
 
-      // Call function to re-populate goalie options
-      this.getGoalieOptions()
-    };
+    database.ref(`${this.state.time}/options`)
+      .orderByChild('name')
+      .once('value')
+      .then(snapshot => {
+        snapshot.forEach(item => {
+          stateGoalieList.push(item.val());
+        })
+          
+        this.setState({
+          goalieList: stateGoalieList
+        });
+      }).catch(e => {
+        console.log(`Error: ${e}`);
+      });
+  };
 
 
-    componentDidMount() {
-      // Call function to populate goalie options
-      this.getGoalieOptions()
-    }
+  // Function to reset all state data
+  resetState = () => {
+    // Set default state
+    this.setState({
+      ...defaultState
+    })
+
+    // Call function to re-populate goalie options
+    this.getGoalieOptions()
+  };
+
+
+  componentDidMount() {
+    // Call function to populate goalie options
+    this.getGoalieOptions()
+  }
 
 
   render() {
