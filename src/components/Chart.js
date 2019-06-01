@@ -12,6 +12,22 @@ const ChartBox = styled(Box)`
   overflow-y: visible;
 `;
 
+
+const LabelComponent = ({ id, anchor }) => (
+  <g transform={`translate(${id === 'HDGSAA/60' ? -75 : anchor === 'end' ? -40 : anchor === 'middle' ? -15 : 0}, 0)`}>
+    <text
+      style={{
+        fontSize: 14,
+        fontWeight: 'bold',
+        fill: '#0066E5',
+      }}
+    >
+      {id}
+    </text>
+  </g>
+);
+
+
 const Chart = ({stats}) => {
   // Store goalie index as chart keys
   const keys = stats.map((item, i) => i);
@@ -130,6 +146,7 @@ const Chart = ({stats}) => {
             },
           },
         }}
+        gridLabel={LabelComponent}
       />
     </ChartBox>
   )
