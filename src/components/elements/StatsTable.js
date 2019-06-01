@@ -18,6 +18,14 @@ const GoalieTable = styled.table`
 		background: #B3D5FF;
 	}
 
+	& .empty {
+		height: 1rem;
+	}
+
+	& tbody tr.empty:hover {
+		background: none;
+	}
+
 	& th:nth-child(1) {
 		padding-left: .5rem;
 	}
@@ -28,12 +36,6 @@ const GoalieTable = styled.table`
 		text-align: right;
 		padding-right: .5rem;
 	}
-`;
-
-const TableRowSpace = styled.tr`
-  & * {
-    padding-top: 1rem;
-  }
 `;
 
 
@@ -72,11 +74,12 @@ const StatsTable = ({goalie, rankTotal}) => {
 					<td>{(stats.sa / stats.toi * 60).toFixed(3)}</td>
 					<td>{rank.sa}</td>
 				</tr>
-				<TableRowSpace>
+				<tr className="empty"></tr>
+				<tr>
 					<th>&#xA0;SV%</th>
 					<td>{stats.sv.toFixed(3)}</td>
 					<td>{rank.sv}</td>
-				</TableRowSpace>
+				</tr>
 				<tr>
 					<th>xSV%</th>
 					<td>{stats.xsv.toFixed(3)}</td>
@@ -87,21 +90,23 @@ const StatsTable = ({goalie, rankTotal}) => {
 					<td>{stats.dsv.toFixed(3)}</td>
 					<td>{rank.dsv}</td>
 				</tr>
-				<TableRowSpace>
+				<tr className="empty"></tr>
+				<tr>
 					<th>GSAA</th>
 					<td>{stats.gsaa.toFixed(3)}</td>
 					<td>{rank.gsaa}</td>
-				</TableRowSpace>
+				</tr>
 				<tr>
 					<th>GSAA/60</th>
 					<td>{stats.gsaa60.toFixed(3)}</td>
 					<td>{rank.gsaa60}</td>
 				</tr>
-				<TableRowSpace>
+				<tr className="empty"></tr>
+				<tr>
 					<th>HDSV%</th>
-					<td>{stats.hdsv.toFixed(3)}</td>
+					<td>{stats.hdsv.toFixed(3) || "--"}</td>
 					<td>{rank.hdsv}</td>
-				</TableRowSpace>
+				</tr>
 				<tr>
 					<th>HDGSAA</th>
 					<td>{stats.hdgsaa.toFixed(3)}</td>
