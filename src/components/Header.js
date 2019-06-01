@@ -27,6 +27,7 @@ const Nav = styled.ul`
 
   & li {
     padding: 0 1.5rem;
+    cursor: pointer;
   }
 
   & li:hover {
