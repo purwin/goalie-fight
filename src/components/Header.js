@@ -88,7 +88,6 @@ class Header extends Component {
         <h1>Goalie Fight!</h1>
         <Nav>
           <li onClick={this.toggleModal}>ABOUT</li>
-          <li onClick={this.toggleModal}>GLOSSARY</li>
         </Nav>
         <GoalieModal
           modalIsOpen={this.state.modalIsOpen}
