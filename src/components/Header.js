@@ -40,7 +40,7 @@ const AboutModal = () => (
     <h3>About Goalie Fight!</h3>
     <p>I am a Flyers fan. Goalies are my nightmares.</p>
     <p>Goalie Fight! is a Data Visualization project pitting goalie stats head to head.</p>
-    <p>Most data is culled from the amazing <a href="http://www.naturalstattrick.com/">Natural Stat Trick</a>. Please check out their <a href="https://www.patreon.com/naturalstattrick">Patreon</a> and give them all your money.</p>
+    <p>Most data is culled from the amazing <a href="http://www.naturalstattrick.com/" target="_blank" rel="noopener noreferrer">Natural Stat Trick</a>. Please check out their <a href="https://www.patreon.com/naturalstattrick" target="_blank" rel="noopener noreferrer">Patreon</a> and give them all your money.</p>
     <p>Have non-threatening questions or comments? Send ’em my way!</p>
   </div>
 );
