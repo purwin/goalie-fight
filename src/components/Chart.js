@@ -130,7 +130,7 @@ const Chart = ({stats}) => {
         animate={true}
         motionStiffness={120}
         motionDamping={15}
-        isInteractive={!!stats[0].name}
+        isInteractive={false}
         tooltip={({ id, value, color, ...args}) => {
           console.log(args);
           return (
