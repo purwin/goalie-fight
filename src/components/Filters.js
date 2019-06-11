@@ -67,7 +67,7 @@ const Filters = ({time, situation, setSituation, resetState, ...props}) => {
     <FiltersDiv>
       <Select
         value={options.filter(option => option.value === time)}
-        isDisabled={false}
+        isDisabled={true}
         escapeClearsValue={false}
         isClearable={false}
         isSearchable={false}
