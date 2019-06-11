@@ -18,58 +18,58 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
-// Loop over data, populate arrays
-datumAll.default.forEach((item, i) => {
-  // Add goalie name, id to list array
-  database.ref(`2018/ALL/goalies/${item.id}_${item.team.toLowerCase()}`)
-    .set({
-      id: item.id,
-      ...item
-    });
+// // Loop over data, populate arrays
+// datumAll.default.forEach((item, i) => {
+//   // Add goalie name, id to list array
+//   database.ref(`2018/ALL/goalies/${item.id}_${item.team.toLowerCase()}`)
+//     .set({
+//       id: item.id,
+//       ...item
+//     });
   
-    database.ref(`2018/options/${item.id}_${item.team.toLowerCase()}`).set({
-      id: item.id,
-      name: item.name,
-      team: item.team
-    });
-});
+//     database.ref(`2018/options/${item.id}_${item.team.toLowerCase()}`).set({
+//       id: item.id,
+//       name: item.name,
+//       team: item.team
+//     });
+// });
 
-// Loop over data, populate arrays
-datum5v5.default.forEach((item, i) => {
-  // Add goalie name, id to list array
-  database.ref(`2018/5v5/goalies/${item.id}_${item.team.toLowerCase()}`)
-    .set({
-      id: item.id,
-      ...item
-    });
-});
+// // Loop over data, populate arrays
+// datum5v5.default.forEach((item, i) => {
+//   // Add goalie name, id to list array
+//   database.ref(`2018/5v5/goalies/${item.id}_${item.team.toLowerCase()}`)
+//     .set({
+//       id: item.id,
+//       ...item
+//     });
+// });
 
-// Loop over data, populate arrays
-datumEVENS.default.forEach((item, i) => {
-  // Add goalie name, id to list array
-  database.ref(`2018/EVENS/goalies/${item.id}_${item.team.toLowerCase()}`)
-    .set({
-      id: item.id,
-      ...item
-    });
-});
+// // Loop over data, populate arrays
+// datumEVENS.default.forEach((item, i) => {
+//   // Add goalie name, id to list array
+//   database.ref(`2018/EVENS/goalies/${item.id}_${item.team.toLowerCase()}`)
+//     .set({
+//       id: item.id,
+//       ...item
+//     });
+// });
 
-// Loop over data, populate arrays
-datumPK.default.forEach((item, i) => {
-  // Add goalie name, id to list array
-  database.ref(`2018/PK/goalies/${item.id}_${item.team.toLowerCase()}`)
-    .set({
-      id: item.id,
-      ...item
-    });
-});
+// // Loop over data, populate arrays
+// datumPK.default.forEach((item, i) => {
+//   // Add goalie name, id to list array
+//   database.ref(`2018/PK/goalies/${item.id}_${item.team.toLowerCase()}`)
+//     .set({
+//       id: item.id,
+//       ...item
+//     });
+// });
 
-// Loop over data, populate arrays
-datum4v5.default.forEach((item, i) => {
-  // Add goalie name, id to list array
-  database.ref(`2018/4v5/goalies/${item.id}_${item.team.toLowerCase()}`)
-    .set({
-      id: item.id,
-      ...item
-    });
-});
+// // Loop over data, populate arrays
+// datum4v5.default.forEach((item, i) => {
+//   // Add goalie name, id to list array
+//   database.ref(`2018/4v5/goalies/${item.id}_${item.team.toLowerCase()}`)
+//     .set({
+//       id: item.id,
+//       ...item
+//     });
+// });
