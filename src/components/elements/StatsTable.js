@@ -104,8 +104,8 @@ const StatsTable = ({goalie, rankTotal}) => {
 				<tr className="empty"></tr>
 				<tr>
 					<th>HDSV%</th>
-					<td>{stats.hdsv.toFixed(3) || "--"}</td>
-					<td>{rank.hdsv}</td>
+					<td>{stats.hdsv ? stats.hdsv.toFixed(3) : "--"}</td>
+					<td>{stats.hdsv ? rank.hdsv : "--"}</td>
 				</tr>
 				<tr>
 					<th>HDGSAA</th>
