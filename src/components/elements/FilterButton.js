@@ -3,6 +3,8 @@ import React from 'react'
 
 const FilterButton = styled.button`
   border: 2px solid transparent;
+  padding: 0;
+  margin: 0;
   border-radius: 0;
   font-size: 1rem;
   cursor: pointer;
