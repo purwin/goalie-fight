@@ -82,7 +82,7 @@ const GoalieSelector = ({index, goalie, goalies, goalieList, changeGoalie, setAc
 				getOptionValue={option =>`${option.name} (${option.team})`}
 				menuShouldScrollIntoView={false}
 				styles={styleColor}
-				menuPlacement={`auto`}
+				menuPlacement={`top`}
 				isOptionDisabled={(option) => goalies.find(goalie => (
 					goalie.id === option.id && goalie.name === option.name && goalie.team === option.team
 				))}
