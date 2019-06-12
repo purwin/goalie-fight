@@ -31,7 +31,7 @@ const GoalieName = styled.h3`
 const BoxBody = styled.div`
   margin: 0 0 1rem 0;
   background: #E5F1FF;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 
