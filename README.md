@@ -29,17 +29,13 @@ $ npm install
 ### Up and Running
 Create a dev build and live server:
 ```
-npm start
-```
-or
-```
 yarn start
 ```
 
 ### Ship It
 Create a minified production build:
 ```
-yarn start
+yarn build
 ```
 
 ## Project Structure
