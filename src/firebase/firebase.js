@@ -1,4 +1,5 @@
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
 import * as datumAll from '../data/ALL/stats_2018_ALL.json'
 import * as datum5v5 from '../data/5v5/stats_2018_5v5.json'
 import * as datumEVENS from '../data/EVENS/stats_2018_EVENS.json'
