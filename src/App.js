@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import * as firebase from 'firebase'
+import firebase from 'firebase/app';
+import 'firebase/database';
 import WebFont from 'webfontloader';
 
 import Header from './components/Header'
